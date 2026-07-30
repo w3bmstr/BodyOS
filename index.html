@@ -1,0 +1,1015 @@
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+:root{
+  --ink:#0f1117;--ink2:#1c2030;--ink3:#2b3045;--slate:#4a5270;--mist:#8892a8;
+  --fog:#e8eaf0;--snow:#f4f5f8;--sf:#ffffff;
+  --gold:#c9963a;--gold-lt:#f0c060;--gold-dk:#8a6520;
+  --green:#2eb87a;--green-lt:#d4f5e7;--green-dk:#1a6644;
+  --red:#e04060;--red-lt:#fde8ec;
+  --blue:#3b7ef6;--blue-lt:#e8f0ff;
+  --amber:#f5a623;--amber-lt:#fff3dd;
+  --purple:#8b5cf6;--purple-lt:#f0ebff;
+  --teal:#0ea5b0;--teal-lt:#e0f7f8;
+  --sw:228px;--th:54px;--r:10px;--rl:14px;
+  --bg:var(--snow);--bd:var(--fog);--tx:var(--ink);--tx2:var(--ink3);--tx3:var(--mist);
+  --nvbg:#0f1117;--nvact:#1c2030;--nvsep:#252d40;
+}
+#app.dk{
+  --bg:#10131a;--sf:#171b26;--bd:#252d40;--tx:#e8ecf4;--tx2:#c0c8dc;--tx3:#6b7590;
+  --nvbg:#0c0f17;--nvact:#171b26;--nvsep:#252d40;--snow:#10131a;--fog:#252d40;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px}
+#app{display:flex;height:100vh;overflow:hidden;background:var(--bg);color:var(--tx);position:relative}
+
+/* SIDEBAR */
+#sb{width:var(--sw);background:var(--nvbg);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;scrollbar-width:none;position:relative;z-index:50;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+#sb::-webkit-scrollbar{display:none}
+#sb::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,var(--gold-dk) 0%,transparent 70%);opacity:.5}
+.logo{padding:16px 16px 14px;border-bottom:1px solid var(--nvsep);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:30px;height:30px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--ink);flex-shrink:0;letter-spacing:-.5px}
+.logo-text{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.logo-sub{font-size:9px;color:var(--slate);letter-spacing:.1em;text-transform:uppercase;margin-top:1px}
+.nav-section{padding:10px 0 2px}
+.nav-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);padding:0 14px 6px}
+.nav-list{list-style:none}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;color:var(--mist);font-size:12.5px;font-weight:500;border-left:3px solid transparent;transition:all .14s;white-space:nowrap}
+.nav-item:hover{color:#fff;background:var(--nvact)}
+.nav-item.active{color:var(--gold-lt);background:var(--nvact);border-left-color:var(--gold)}
+.nav-icon{font-size:13px;width:16px;text-align:center;flex-shrink:0;opacity:.6}
+.nav-item.active .nav-icon{opacity:1}
+.nav-pill{margin-left:auto;font-size:9px;font-weight:700;padding:2px 6px;border-radius:99px;background:var(--green);color:#fff;flex-shrink:0}
+.nav-pill.gold{background:var(--gold);color:var(--ink)}
+.sb-footer{margin-top:auto;padding:10px;border-top:1px solid var(--nvsep)}
+.user-row{display:flex;align-items:center;gap:9px;padding:8px;border-radius:var(--r)}
+.avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink);flex-shrink:0}
+.user-name{font-size:12px;font-weight:600;color:#fff;line-height:1.2}
+.user-role{font-size:10px;color:var(--slate)}
+
+/* OVERLAY */
+#ov{display:none;position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:49;backdrop-filter:blur(2px)}
+#app.sbo #ov{display:block}
+
+/* MAIN */
+#main{flex:1;display:flex;flex-direction:column;height:100%;overflow:hidden;min-width:0}
+
+/* TOPBAR */
+.topbar{height:var(--th);background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 18px;gap:12px;flex-shrink:0}
+.hbg{display:none;background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;color:var(--tx3);font-size:20px;line-height:1}
+.page-title{font-size:17px;font-weight:700;color:var(--tx);flex:1;letter-spacing:-.2px}
+.topbar-actions{display:flex;gap:6px;align-items:center}
+.icon-btn{background:none;border:1.5px solid var(--bd);border-radius:var(--r);padding:6px 10px;cursor:pointer;font-size:14px;color:var(--tx3);transition:all .14s;line-height:1}
+.icon-btn:hover{background:var(--bd);color:var(--tx)}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-track{background:transparent}
+.content::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+.page{display:none;padding:20px;animation:fadeUp .2s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* PAGE HEADER */
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+.ph-title{font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.4px;line-height:1.2}
+.ph-sub{font-size:12px;color:var(--tx3);margin-top:4px}
+.ph-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat{background:var(--sf);border-radius:var(--rl);padding:14px 16px;border:1px solid var(--bd)}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:6px}
+.stat-val{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.5px}
+.stat-meta{font-size:11px;color:var(--tx3);margin-top:4px}
+.cv-g{color:var(--green)}.cv-r{color:var(--red)}.cv-a{color:var(--amber)}.cv-b{color:var(--blue)}.cv-gold{color:var(--gold)}
+
+/* CARDS */
+.card{background:var(--sf);border-radius:var(--rl);padding:16px;border:1px solid var(--bd);margin-bottom:12px}
+.card-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card-title{font-size:13.5px;font-weight:600;color:var(--tx);line-height:1.3}
+.card-body{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;letter-spacing:.02em}
+.bdg-g{background:var(--green-lt);color:var(--green-dk)}
+.bdg-a{background:var(--amber-lt);color:#7a5000}
+.bdg-b{background:var(--blue-lt);color:var(--blue)}
+.bdg-r{background:var(--red-lt);color:var(--red)}
+.bdg-p{background:var(--purple-lt);color:var(--purple)}
+.bdg-d{background:var(--fog);color:var(--slate)}
+.bdg-gold{background:rgba(201,150,58,.15);color:var(--gold)}
+#app.dk .bdg-g{background:rgba(46,184,122,.12);color:var(--green)}
+#app.dk .bdg-a{background:rgba(245,166,35,.12);color:var(--amber)}
+#app.dk .bdg-b{background:rgba(59,126,246,.12);color:var(--blue)}
+#app.dk .bdg-r{background:rgba(224,64,96,.12);color:var(--red)}
+#app.dk .bdg-d{background:var(--nvsep);color:var(--mist)}
+#app.dk .bdg-gold{background:rgba(201,150,58,.15);color:var(--gold-lt)}
+
+/* SECTION LABEL */
+.section-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);margin:1.2rem 0 .65rem;padding-bottom:.45rem;border-bottom:1px solid var(--bd)}
+
+/* PROGRESS */
+.prog-wrap{background:var(--sf);border-radius:var(--rl);padding:16px;border:1px solid var(--bd);margin-bottom:16px}
+.prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.prog-title{font-size:14px;font-weight:600;color:var(--tx)}
+.prog-count{font-size:13px;color:var(--tx3);font-variant-numeric:tabular-nums}
+.prog-track{height:7px;background:var(--bd);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--green) 0%,var(--teal) 100%)}
+
+/* STREAK */
+.streak-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.streak-day{aspect-ratio:1;border-radius:5px;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--tx3);transition:all .2s}
+.streak-day.done{background:var(--green);color:#fff}
+.streak-day.partial{background:var(--amber-lt);color:var(--amber)}
+.streak-day.today{outline:2px solid var(--blue);outline-offset:1px}
+#app.dk .streak-day.partial{background:rgba(245,166,35,.2);color:var(--amber)}
+
+/* CHECKLIST */
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--bd);cursor:pointer;-webkit-user-select:none;user-select:none;transition:opacity .15s}
+.check-item:last-child{border-bottom:none}
+.check-item:active{opacity:.7}
+.check-box{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px}
+.check-box.done{background:var(--green);border-color:var(--green)}
+.check-box svg{opacity:0;transition:opacity .15s;transform:scale(.8);transition:all .2s}
+.check-box.done svg{opacity:1;transform:scale(1)}
+.check-txt{flex:1;min-width:0}
+.check-label{font-size:13.5px;font-weight:600;color:var(--tx);transition:all .2s;line-height:1.3}
+.check-box.done~.check-txt .check-label{color:var(--tx3);text-decoration:line-through;text-decoration-color:var(--bd)}
+.check-sub{font-size:11.5px;color:var(--tx3);margin-top:2px;line-height:1.4}
+.check-badge{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:99px;margin-top:5px;display:inline-block;letter-spacing:.02em}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:22px}
+.tl::before{content:'';position:absolute;left:7px;top:4px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--blue),var(--green),transparent)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-dot{position:absolute;left:-17px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--blue);border:2px solid var(--blue);transition:all .2s}
+.tl-time{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.tl-title{font-size:13.5px;font-weight:600;color:var(--tx);margin-top:1px}
+.tl-desc{font-size:12px;color:var(--tx3);margin-top:3px;line-height:1.55}
+
+/* INFO BOXES */
+.box{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin:10px 0;font-size:12.5px;line-height:1.7;color:var(--tx2)}
+.box strong,.box b{color:var(--tx)}
+.box.warn{background:var(--amber-lt);border-color:rgba(245,166,35,.3);color:#6b4000}
+.box.good{background:var(--green-lt);border-color:rgba(46,184,122,.3);color:var(--green-dk)}
+.box.info{background:var(--blue-lt);border-color:rgba(59,126,246,.3);color:#1a3a8a}
+#app.dk .box.warn{background:rgba(245,166,35,.08);color:var(--amber);border-color:rgba(245,166,35,.2)}
+#app.dk .box.good{background:rgba(46,184,122,.08);color:var(--green);border-color:rgba(46,184,122,.2)}
+#app.dk .box.info{background:rgba(59,126,246,.08);color:var(--blue);border-color:rgba(59,126,246,.2)}
+
+/* TIMER */
+.timer-val{font-size:clamp(34px,7vw,50px);font-weight:700;letter-spacing:-2px;line-height:1;color:var(--tx);font-variant-numeric:tabular-nums}
+.timer-center{text-align:center;padding:22px 18px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .14s;line-height:1;white-space:nowrap;font-family:inherit}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:var(--ink3)}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{background:var(--gold-lt)}
+.btn-ghost{background:transparent;color:var(--tx3);border:1.5px solid var(--bd)}
+.btn-ghost:hover{background:var(--bd);color:var(--tx)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#25a06a}
+.btn-sm{padding:5px 11px;font-size:11.5px}
+#app.dk .btn-primary{background:var(--gold);color:var(--ink)}
+
+/* INPUTS */
+input[type=time],input[type=datetime-local],input[type=text],textarea{
+  background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r);
+  padding:7px 10px;font-size:13px;color:var(--tx);outline:none;font-family:inherit;
+  transition:border-color .14s;max-width:100%}
+input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,textarea:focus{border-color:var(--gold)}
+
+/* BREATHING */
+#breath-ring{width:clamp(90px,16vw,110px);height:clamp(90px,16vw,110px);border-radius:50%;border:3px solid var(--blue);display:flex;align-items:center;justify-content:center;transition:transform .6s ease,border-color .4s;margin:0 auto 16px}
+.breath-txt{font-size:15px;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
+
+/* WATER DOTS */
+.water-dot{width:clamp(24px,5.5vw,34px);height:clamp(24px,5.5vw,34px);border-radius:50%;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+
+/* SCHEDULE */
+.sched-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--bd);position:relative}
+.sched-item:last-child{border-bottom:none}
+.sched-item.current::before{content:'';position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:3px;height:32px;background:var(--green);border-radius:99px}
+.sched-time{font-size:11.5px;font-weight:700;color:var(--tx3);width:50px;flex-shrink:0;padding-top:1px;font-variant-numeric:tabular-nums}
+.sched-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.sched-content{flex:1}
+.sched-title{font-size:13px;font-weight:600;color:var(--tx)}
+.sched-sub{font-size:11.5px;color:var(--tx3);margin-top:2px;line-height:1.4}
+
+/* JOURNAL */
+.journal-entry{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);padding:14px;margin-bottom:10px}
+.entry-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.entry-date{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3)}
+.entry-score{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--green-lt);color:var(--green-dk)}
+.entry-text{font-size:13px;color:var(--tx2);line-height:1.6}
+.entry-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.journal-toolbar{display:flex;align-items:center;gap:5px;padding:8px 0 10px;flex-wrap:wrap;border-bottom:1px solid var(--bd);margin-bottom:10px}
+.fmt-btn{background:none;border:1.5px solid var(--bd);border-radius:6px;padding:3px 9px;cursor:pointer;font-size:13px;font-weight:700;color:var(--tx3);transition:all .14s;line-height:1.4;font-family:inherit}
+.fmt-btn:hover,.fmt-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+#app.dk .fmt-btn:hover,#app.dk .fmt-btn.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.fmt-sep{width:1px;height:18px;background:var(--bd);flex-shrink:0;margin:0 2px}
+.fmt-sel{background:var(--bg);border:1.5px solid var(--bd);border-radius:6px;padding:3px 6px;font-size:11.5px;color:var(--tx);cursor:pointer;outline:none;font-family:inherit;transition:border-color .14s}
+.fmt-sel:focus{border-color:var(--gold)}
+#journal-editor{min-height:80px;max-height:220px;overflow-y:auto;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r);padding:8px 10px;font-size:13px;color:var(--tx);outline:none;transition:border-color .14s;line-height:1.65;cursor:text;word-break:break-word;white-space:pre-wrap;margin-bottom:10px}
+#journal-editor:focus{border-color:var(--gold)}
+#journal-editor:empty::before{content:attr(data-ph);color:var(--tx3);pointer-events:none;font-style:italic}
+.entry-actions{display:flex;gap:4px;align-items:center}
+.entry-act{background:none;border:none;cursor:pointer;font-size:11px;color:var(--tx3);padding:2px 7px;border-radius:5px;transition:all .14s;font-family:inherit;font-weight:600}
+.entry-act:hover{background:var(--bd);color:var(--tx)}
+.entry-act.del:hover{background:var(--red-lt);color:var(--red)}
+#app.dk .entry-act.del:hover{background:rgba(224,64,96,.15);color:var(--red)}
+
+/* BOTTOM NAV */
+#bnav{display:none;background:var(--sf);border-top:1px solid var(--bd);flex-shrink:0}
+.bnav-inner{display:flex}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--tx3);font-size:9px;font-weight:700;border:none;background:none;padding:9px 0;font-family:inherit;letter-spacing:.02em;text-transform:uppercase;transition:color .14s}
+.bnav-btn.active{color:var(--gold)}
+.bnav-icon{font-size:17px;line-height:1}
+
+/* TOAST */
+#toast{position:absolute;bottom:16px;right:16px;background:var(--ink);color:#fff;padding:11px 16px;border-radius:var(--r);font-size:12.5px;font-weight:500;z-index:300;display:flex;align-items:center;gap:8px;transform:translateY(60px);opacity:0;transition:all .25s ease;max-width:260px;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.ok{border-left:4px solid var(--green)}
+#toast.info{border-left:4px solid var(--blue)}
+#toast.warn{border-left:4px solid var(--amber)}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--bd);margin:16px 0}
+
+/* CURRENT TIME LINE */
+.now-indicator{display:flex;align-items:center;gap:8px;margin:10px 0}
+.now-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 0 3px rgba(46,184,122,.25)}
+.now-line{flex:1;height:1px;background:var(--green);opacity:.4}
+.now-label{font-size:10px;font-weight:700;color:var(--green);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  #sb{position:absolute;top:0;bottom:0;left:0;transform:translateX(-100%)}
+  #app.sbo #sb{transform:translateX(0)}
+  .hbg{display:flex}
+  #bnav{display:block}
+  .page{padding:14px}
+  .stats{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+  .timer-val{font-size:38px}
+}
+@media(max-width:380px){.stats{grid-template-columns:1fr}}
+</style>
+
+<div id="app">
+<aside id="sb">
+  <div class="logo">
+    <div class="logo-mark">B</div>
+    <div><div class="logo-text">BodyOS</div><div class="logo-sub">Protocol v2</div></div>
+  </div>
+
+  <div class="nav-section"><div class="nav-label">Daily</div><ul class="nav-list">
+    <li class="nav-item active" data-page="today"><span class="nav-icon">◉</span>Today<span class="nav-pill gold" id="nav-score">0%</span></li>
+    <li class="nav-item" data-page="schedule"><span class="nav-icon">◷</span>Schedule</li>
+    <li class="nav-item" data-page="fasting"><span class="nav-icon">⏳</span>Fasting timer</li>
+    <li class="nav-item" data-page="exercise"><span class="nav-icon">◈</span>Exercise</li>
+  </ul></div>
+
+  <div class="nav-section"><div class="nav-label">Nutrition</div><ul class="nav-list">
+    <li class="nav-item" data-page="supplements"><span class="nav-icon">◎</span>Supplements</li>
+    <li class="nav-item" data-page="food"><span class="nav-icon">◌</span>Food</li>
+    <li class="nav-item" data-page="hydration"><span class="nav-icon">◍</span>Hydration</li>
+  </ul></div>
+
+  <div class="nav-section"><div class="nav-label">Wellbeing</div><ul class="nav-list">
+    <li class="nav-item" data-page="stress"><span class="nav-icon">◐</span>Stress<span class="nav-pill">New</span></li>
+    <li class="nav-item" data-page="gut"><span class="nav-icon">◑</span>Gut health<span class="nav-pill">New</span></li>
+    <li class="nav-item" data-page="smoking"><span class="nav-icon">◒</span>Quit smoking<span class="nav-pill">New</span></li>
+  </ul></div>
+
+  <div class="nav-section"><div class="nav-label">Insights</div><ul class="nav-list">
+    <li class="nav-item" data-page="journal"><span class="nav-icon">◇</span>Journal</li>
+    <li class="nav-item" data-page="science"><span class="nav-icon">◆</span>The science</li>
+  </ul></div>
+
+  <div class="sb-footer">
+    <div class="user-row">
+      <div class="avatar">YO</div>
+      <div><div class="user-name">Your Protocol</div><div class="user-role">Immune support · BC</div></div>
+    </div>
+  </div>
+</aside>
+
+<div id="ov" onclick="closeSb()"></div>
+
+<div id="main">
+  <div class="topbar">
+    <button class="hbg" onclick="toggleSb()">☰</button>
+    <div class="page-title" id="page-title">Today</div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="thm-btn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+  <!-- TODAY -->
+  <section class="page active" id="page-today">
+    <div class="ph">
+      <div><div class="ph-title">Today's Protocol</div><div class="ph-sub" id="today-date"></div></div>
+      <button class="btn btn-ghost btn-sm" onclick="resetDay()">Reset day</button>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-top"><span class="prog-title">Daily progress</span><span class="prog-count" id="prog-count">0 / 10</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div style="margin-top:12px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tx3);margin-bottom:6px">Last 7 days</div>
+        <div class="streak-grid" id="streak-grid"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="checklist"></div>
+      <button class="btn btn-ghost btn-sm" onclick="resetDay()" style="margin-top:10px">Reset checklist</button>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="page" id="page-schedule">
+    <div class="ph"><div><div class="ph-title">Daily Schedule</div><div class="ph-sub">Your protocol mapped to the clock</div></div></div>
+    <div class="card" style="padding:18px 20px">
+      <div id="schedule-list"></div>
+    </div>
+    <div class="box info"><b>How to read this:</b> The green bar marks your current time. Habits above it = should be done. Habits below = coming up. The fasting window is your anchor — everything else builds around it.</div>
+  </section>
+
+  <!-- FASTING -->
+  <section class="page" id="page-fasting">
+    <div class="ph"><div><div class="ph-title">Fasting Timer</div><div class="ph-sub">Track your autophagy window in real time</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Glycogen depletes</div><div class="stat-val cv-a">12h</div><div class="stat-meta">Window opens</div></div>
+      <div class="stat"><div class="stat-label">Autophagy activates</div><div class="stat-val cv-b">16h</div><div class="stat-meta">Your target</div></div>
+      <div class="stat"><div class="stat-label">Peak autophagy</div><div class="stat-val cv-g">18–24h</div><div class="stat-meta">Maximum benefit</div></div>
+    </div>
+    <div class="card timer-center">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:8px">Time fasting</div>
+      <div id="fast-timer" class="timer-val">00:00:00</div>
+      <div id="fast-status" style="font-size:13px;color:var(--tx3);margin:10px 0 20px;min-height:18px">Set your last meal time to begin</div>
+      <div style="display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+        <label style="font-size:12px;color:var(--tx3)">Last meal:</label>
+        <input type="time" id="last-meal" onchange="startFast()">
+        <button onclick="fastNow()" class="btn btn-ghost btn-sm">Starting now</button>
+      </div>
+    </div>
+    <div class="section-label">What's happening hour by hour</div>
+    <div class="card"><div class="tl">
+      <div class="tl-item"><div class="tl-dot" style="background:var(--mist);border-color:var(--mist)"></div><div class="tl-time">0–12 hours</div><div class="tl-title">Digestion → glycogen depletion</div><div class="tl-desc">mTOR active, autophagy fully suppressed. Insulin falls progressively after hour 4. Body in storage and build mode.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--amber);border-color:var(--amber)"></div><div class="tl-time">12–16 hours</div><div class="tl-title">Ketosis begins — AMPK rises</div><div class="tl-desc">AMPK (cellular energy sensor) activates and begins switching on autophagy gene expression. DNA repair enzymes start mobilising.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">16–18 hours</div><div class="tl-title">Autophagy reaches meaningful threshold</div><div class="tl-desc">Beclin-1 and ULK1 fully activated. Cells begin digesting damaged proteins, dysfunctional mitochondria, and misfolded components. This is your daily target.</div></div>
+      <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">18–24 hours</div><div class="tl-title">Peak autophagy + immune cell renewal</div><div class="tl-desc">Maximum cellular cleanup running. DNA repair activity at highest. Immune cells undergo pruning and renewal. Consider breaking fast before 24h unless supervised.</div></div>
+    </div></div>
+    <div class="box warn"><b>What breaks autophagy:</b> Any calories. Black coffee, plain water, unsweetened ginger tea = fine. Food, juice, or milk → mTOR reactivates within 30 minutes.</div>
+  </section>
+
+  <!-- EXERCISE -->
+  <section class="page" id="page-exercise">
+    <div class="ph"><div><div class="ph-title">Exercise</div><div class="ph-sub">Movement as medicine — the AMPK pathway</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Min cardio</div><div class="stat-val cv-b">20m</div><div class="stat-meta">Per session</div></div>
+      <div class="stat"><div class="stat-label">Frequency</div><div class="stat-val cv-g">3–5×</div><div class="stat-meta">Per week</div></div>
+      <div class="stat"><div class="stat-label">Heart rate zone</div><div class="stat-val cv-a">60–70%</div><div class="stat-meta">Max HR</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="card-row"><div><div class="card-title">Fasted morning walk</div><div class="card-body">Before first meal. Fasting + exercise AMPK signals arrive simultaneously — this is the single highest autophagy trigger available without medication.</div></div><span class="badge bdg-g" style="margin-left:8px">Priority</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">10×10 pushups</div><div class="card-body">Maintain and build. Post-workout mTOR in fed state goes to muscle repair — not interference. Resistance training builds immune-supporting muscle mass.</div></div><span class="badge bdg-g" style="margin-left:8px">Keep</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Add squats + rows</div><div class="card-body">Large muscle groups generate a stronger AMPK signal. Doorframe rows and bodyweight squats take 5 minutes and add meaningful immune benefit.</div></div><span class="badge bdg-a" style="margin-left:8px">Add this</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Walking after meals</div><div class="card-body">A 10–15 min walk after eating blunts the post-meal blood sugar spike by ~30%, keeping insulin lower throughout the day. This supports your fasting window quality.</div></div><span class="badge bdg-b" style="margin-left:8px">Bonus</span></div></div>
+    </div>
+    <div class="box"><b>Movement moves lymph.</b> Your lymphatic system has no pump — every muscle contraction physically squeezes cellular waste out of your tissues. The fasted morning walk does double duty: autophagy trigger + lymphatic flush.</div>
+  </section>
+
+  <!-- SUPPLEMENTS -->
+  <section class="page" id="page-supplements">
+    <div class="ph"><div><div class="ph-title">Supplements</div><div class="ph-sub">Evidence-based immune and repair support</div></div></div>
+    <div class="section-label">Daily — take with first meal</div>
+    <div class="grid2">
+      <div class="card"><div class="card-row"><div><div class="card-title">Vitamin D3 — 2,000–4,000 IU</div><div class="card-body">Regulates 200+ genes in immune function. In BC Oct–Apr almost everyone is deficient. Take with a fatty meal — fat-soluble vitamin, absorption requires fat.</div></div><span class="badge bdg-g" style="margin-left:8px">P1</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Omega-3 — 2–3g EPA+DHA</div><div class="card-body">Reduces prostaglandin E2 which directly suppresses T-cell function. At 2–3g you hit a clinically meaningful anti-inflammatory dose. Take with food.</div></div><span class="badge bdg-g" style="margin-left:8px">P2</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Zinc — 15–25mg</div><div class="card-body">Required for T-cell development and zinc finger DNA repair enzymes. Deficiency = measurably impaired immune response. Cap at 40mg — higher doses block copper absorption.</div></div><span class="badge bdg-b" style="margin-left:8px">Solid</span></div></div>
+    </div>
+    <div class="section-label">Afternoon</div>
+    <div class="card"><div class="card-row"><div><div class="card-title">Magnesium glycinate — 300–400mg</div><div class="card-body">Required cofactor for DNA polymerase — the enzyme that physically repairs damaged DNA. Most people are chronically low. Glycinate form is best absorbed and reduces anxiety. Take in afternoon for sleep benefit.</div></div><span class="badge bdg-b" style="margin-left:8px">Solid</span></div></div>
+    <div class="section-label">Optional</div>
+    <div class="card"><div class="card-row"><div><div class="card-title">EGCG — 400–800mg</div><div class="card-body">Green tea extract. Activates autophagy via AMPK. Supplement doses get you ~10× the blood levels of drinking tea — still below apoptosis threshold but meaningfully in autophagy activation range.</div></div><span class="badge bdg-a" style="margin-left:8px">Useful</span></div></div>
+    <div class="box warn"><b>Artemisinin:</b> do not self-dose. Interacts with CYP liver enzymes, has a narrow therapeutic window, and requires medical oversight. It is not a standard supplement.</div>
+  </section>
+
+  <!-- FOOD -->
+  <section class="page" id="page-food">
+    <div class="ph"><div><div class="ph-title">Food Protocol</div><div class="ph-sub">What to eat — and what to remove</div></div></div>
+    <div class="section-label">Eat daily</div>
+    <div class="grid2">
+      <div class="card"><div class="card-row"><div><div class="card-title">Ginger + turmeric + black pepper</div><div class="card-body">Both activate autophagy via Beclin-1 at food doses. Black pepper increases curcumin absorption by 2,000% — use all three together every day.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Garlic — 2–4 raw cloves</div><div class="card-body">Allicin activates NK cells. Crush and wait 10 min before eating — the crushing activates the alliinase enzyme. Can cook lightly after waiting.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Cruciferous vegetables</div><div class="card-body">Broccoli, cabbage, cauliflower. Sulforaphane activates Nrf2 → upregulates your own glutathione and superoxide dismutase. Lightly steam only — overcooking destroys myrosinase.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Fermented foods</div><div class="card-body">Kefir, sauerkraut, kimchi, plain yogurt. Seeds beneficial gut bacteria that produce butyrate — the compound that directly regulates gut immune cells.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
+    </div>
+    <div class="section-label">3× per week</div>
+    <div class="card"><div class="card-row"><div><div class="card-title">Fatty fish — salmon, sardines, mackerel</div><div class="card-body">Actual EPA and DHA at therapeutic levels. Reduces COX-2 driven inflammation — the microenvironment tumors and abnormal cells depend on for growth and evasion.</div></div><span class="badge bdg-g" style="margin-left:8px">3×/wk</span></div></div>
+    <div class="section-label">Remove completely</div>
+    <div class="card"><div class="card-row"><div><div class="card-title">Sugar, alcohol, ultra-processed food</div><div class="card-body">Sugar activates mTOR within minutes → autophagy switches off. Alcohol suppresses NK cell activity within hours and kills beneficial gut bacteria. These two factors actively undo every other item on this list.</div></div><span class="badge bdg-r" style="margin-left:8px">Cut</span></div></div>
+  </section>
+
+  <!-- STRESS -->
+  <section class="page" id="page-stress">
+    <div class="ph"><div><div class="ph-title">Stress</div><div class="ph-sub">Cortisol is the silent protocol killer</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">NK cells suppressed</div><div class="stat-val cv-r">↓40%</div><div class="stat-meta">Under chronic stress</div></div>
+      <div class="stat"><div class="stat-label">Cortisol drop time</div><div class="stat-val cv-a">20m</div><div class="stat-meta">With 4–7–8 breathing</div></div>
+      <div class="stat"><div class="stat-label">The pattern</div><div class="stat-val cv-gold">4–7–8</div><div class="stat-meta">Inhale · hold · exhale</div></div>
+    </div>
+    <div class="section-label">Guided 4–7–8 breathing</div>
+    <div class="card timer-center">
+      <div id="breath-ring"><div id="breath-txt" class="breath-txt">Ready</div></div>
+      <div id="breath-phase" style="font-size:13px;color:var(--tx3);margin-bottom:20px;min-height:18px"></div>
+      <div style="display:flex;gap:8px;justify-content:center;align-items:center">
+        <button id="breath-btn" onclick="startBreath()" class="btn btn-primary">Start 4 cycles</button>
+        <div id="breath-count" style="font-size:13px;color:var(--tx3);font-variant-numeric:tabular-nums;padding:8px 0"></div>
+      </div>
+    </div>
+    <div class="section-label">Daily cortisol management</div>
+    <div class="grid2">
+      <div class="card"><div class="card-row"><div><div class="card-title">Morning light (15–20 min)</div><div class="card-body">Outside within 30 min of waking. This single habit sets your cortisol peak correctly — high in the morning, dropping through the day. Without it, cortisol stays elevated into the evening, suppressing DNA repair during sleep.</div></div><span class="badge bdg-g" style="margin-left:8px">Critical</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">No screens 1h before sleep</div><div class="card-body">Blue light suppresses melatonin and keeps cortisol elevated. Ginger tea, dim light, and the 4–7–8 breathing instead. Cortisol must be low for DNA repair to run during sleep.</div></div><span class="badge bdg-b" style="margin-left:8px">Nightly</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Cold water on the face</div><div class="card-body">Activates the diving reflex → vagus nerve → immediate heart rate and cortisol drop within seconds. Use during acute stress moments. 30 seconds of cold water on the face and neck works.</div></div><span class="badge bdg-a" style="margin-left:8px">Acute tool</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">2× breathing daily</div><div class="card-body">4–7–8 breathing morning and evening. Morning session lowers the baseline you start the day with. Evening session prepares your nervous system for repair-mode sleep.</div></div><span class="badge bdg-g" style="margin-left:8px">2× daily</span></div></div>
+    </div>
+    <div class="box"><b>The hard truth:</b> Carrying health fear all day is one of the most cortisol-generating things a person can do. The protocol supports your body — but the fear itself actively works against it. Both deserve attention.</div>
+  </section>
+
+  <!-- GUT -->
+  <section class="page" id="page-gut">
+    <div class="ph"><div><div class="ph-title">Gut Health</div><div class="ph-sub">70% of your immune system lives here</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Immune cells in gut</div><div class="stat-val cv-b">70%</div><div class="stat-meta">Of your total</div></div>
+      <div class="stat"><div class="stat-label">Gut lining turnover</div><div class="stat-val cv-g">3–5 days</div><div class="stat-meta">Rapid renewal</div></div>
+      <div class="stat"><div class="stat-label">Microbiome shift</div><div class="stat-val cv-a">2–4 wks</div><div class="stat-meta">With diet change</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="card-row"><div><div class="card-title">Fermented foods — non-negotiable</div><div class="card-body">Kefir, sauerkraut, kimchi, plain yogurt, kombucha. These seed bacteria that produce short-chain fatty acids including butyrate — the compound that directly regulates IgA and regulatory T cells in your gut lining.</div></div><span class="badge bdg-g" style="margin-left:8px">Priority</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Prebiotic fibre — feeds the bacteria</div><div class="card-body">Garlic, onion, leeks, asparagus, oats, barely ripe banana. Fermented by your gut bacteria into butyrate. This is how diet directly controls gut inflammation — the environment all abnormal cells exploit.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Gut-immune axis — why it matters</div><div class="card-body">Your gut bacteria actively train your immune cells. Dysbiosis (bad microbiome balance) creates chronic low-grade systemic inflammation — the exact environment that promotes abnormal cell persistence and progression.</div></div><span class="badge bdg-b" style="margin-left:8px">Key concept</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">What destroys your microbiome</div><div class="card-body">Alcohol kills beneficial bacteria within hours of drinking. Sugar feeds pathogenic bacteria and candida. Smoking measurably reduces microbial diversity within weeks. All three are on the remove list for compounding reasons.</div></div><span class="badge bdg-r" style="margin-left:8px">Avoid</span></div></div>
+    </div>
+    <div class="box good">Your gut lining fully replaces itself every 3–5 days. Start eating fermented foods today and your gut immune environment starts shifting measurably this week — not months from now.</div>
+  </section>
+
+  <!-- HYDRATION -->
+  <section class="page" id="page-hydration">
+    <div class="ph"><div><div class="ph-title">Hydration</div><div class="ph-sub">The lymphatic flush — no pump, water is the pump</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Daily minimum</div><div class="stat-val cv-b">2–3L</div><div class="stat-meta">Total</div></div>
+      <div class="stat"><div class="stat-label">On waking</div><div class="stat-val cv-g">500ml</div><div class="stat-meta">Before coffee</div></div>
+      <div class="stat"><div class="stat-label">Lymph pumps</div><div class="stat-val cv-gold">0</div><div class="stat-meta">Needs water + movement</div></div>
+    </div>
+    <div class="section-label">Daily tracker</div>
+    <div class="card timer-center">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:10px">Glasses — 250ml each</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px" id="water-dots"></div>
+      <div style="font-size:30px;font-weight:700;color:var(--tx);letter-spacing:-1px;font-variant-numeric:tabular-nums" id="water-count">0 / 8</div>
+      <div style="font-size:12px;color:var(--tx3);margin-bottom:18px" id="water-ml">0ml of 2,000ml</div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button onclick="addWater()" class="btn btn-gold">+ Glass (250ml)</button>
+        <button onclick="resetWater()" class="btn btn-ghost btn-sm">Reset</button>
+      </div>
+    </div>
+    <div class="section-label">Daily schedule</div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px;color:var(--tx3)">On waking — before coffee</span><span style="font-size:13px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums">500ml</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px;color:var(--tx3)">Mid-morning</span><span style="font-size:13px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums">500ml</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px;color:var(--tx3)">With first meal</span><span style="font-size:13px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums">500ml</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px;color:var(--tx3)">Afternoon</span><span style="font-size:13px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums">500ml</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px;color:var(--tx3)">Evening (2h before sleep)</span><span style="font-size:13px;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums">250ml</span></div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0"><span style="font-size:13px;font-weight:700;color:var(--tx)">Total</span><span style="font-size:14px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums">2,250ml</span></div>
+    </div>
+  </section>
+
+  <!-- QUIT SMOKING -->
+  <section class="page" id="page-smoking">
+    <div class="ph"><div><div class="ph-title">Quit Smoking</div><div class="ph-sub">The highest-leverage move in the entire protocol</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">BP normalises</div><div class="stat-val cv-g">20m</div><div class="stat-meta">After last cigarette</div></div>
+      <div class="stat"><div class="stat-label">Nicotine cleared</div><div class="stat-val cv-b">72h</div><div class="stat-meta">Physical withdrawal done</div></div>
+      <div class="stat"><div class="stat-label">Lung cilia</div><div class="stat-val cv-a">2 wks</div><div class="stat-meta">Regrowing</div></div>
+    </div>
+    <div class="section-label">Quit timer</div>
+    <div class="card timer-center">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:8px">Time smoke-free</div>
+      <div id="quit-timer" class="timer-val cv-g">—</div>
+      <div id="quit-milestone" style="font-size:13px;color:var(--green);min-height:18px;margin:10px 0 20px;font-weight:500"></div>
+      <div style="display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+        <input type="datetime-local" id="quit-date" onchange="setQuit()">
+        <button onclick="quitNow()" class="btn btn-gold">Quitting now</button>
+      </div>
+    </div>
+    <div class="section-label">The strategy</div>
+    <div class="grid2">
+      <div class="card"><div class="card-row"><div><div class="card-title">Physical addiction ends at 72h</div><div class="card-body">Nicotine fully clears in 3 days. After that the craving is entirely the habit loop — trigger, reach, ritual, relief. The chemical dependency is gone. What remains is behavioural.</div></div><span class="badge bdg-b" style="margin-left:8px">Know this</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">Replace the ritual — ginger tea</div><div class="card-body">Hot liquid, something to hold, a pause, an exhale. Occupies the exact same behavioural loop as a cigarette. Ginger also directly reduces the irritability of withdrawal via 5-HT3 receptor action.</div></div><span class="badge bdg-g" style="margin-left:8px">Use this</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">The protocol supports quitting</div><div class="card-body">Fasting stabilises blood sugar — reducing the irritability spike. Exercise releases dopamine — replacing the reward. Magnesium reduces anxiety. You are already building the chemical support structure.</div></div><span class="badge bdg-g" style="margin-left:8px">Already working</span></div></div>
+      <div class="card"><div class="card-row"><div><div class="card-title">The DNA damage math</div><div class="card-body">Every cigarette introduces benzopyrene and nitrosamines that attach directly to DNA — the exact damage autophagy is trying to clear. You cannot run the cleanup protocol faster than smoking dirties it. Quitting is the protocol.</div></div><span class="badge bdg-r" style="margin-left:8px">Critical</span></div></div>
+    </div>
+    <div class="box good">The strategy is built. The protocol is running. The timer above is waiting. You said a few days — this is the day you can point to.</div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="page" id="page-journal">
+    <div class="ph">
+      <div><div class="ph-title">Journal</div><div class="ph-sub">Track how you feel as the protocol builds</div></div>
+      <button class="btn btn-gold btn-sm" onclick="openJournalForm()">+ Add entry</button>
+    </div>
+    <div id="journal-form" style="display:none;margin-bottom:16px">
+      <div class="card">
+        <div class="section-label" style="margin-top:0"><span id="journal-form-title">New entry</span> — <span id="journal-entry-date"></span></div>
+        <div class="journal-toolbar">
+          <select class="fmt-sel" id="fmt-font" onchange="applyFontFamily(this.value)" title="Font family">
+            <option value="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif">Sans-serif</option>
+            <option value="Georgia,'Times New Roman',serif">Serif</option>
+            <option value="'SF Mono','Fira Code','Courier New',monospace">Monospace</option>
+          </select>
+          <select class="fmt-sel" id="fmt-size" onchange="applyFontSize(this.value)" title="Font size">
+            <option value="11px">Small</option>
+            <option value="13px" selected>Normal</option>
+            <option value="15px">Large</option>
+            <option value="18px">XL</option>
+          </select>
+          <div class="fmt-sep"></div>
+          <button class="fmt-btn" id="fmt-b" onmousedown="event.preventDefault();fmtCmd('bold')" title="Bold"><b>B</b></button>
+          <button class="fmt-btn" id="fmt-i" onmousedown="event.preventDefault();fmtCmd('italic')" title="Italic"><i>I</i></button>
+          <button class="fmt-btn" id="fmt-u" onmousedown="event.preventDefault();fmtCmd('underline')" title="Underline"><u>U</u></button>
+        </div>
+        <div id="journal-editor" contenteditable="true" data-ph="How do you feel today? Energy levels, symptoms, wins, struggles..."></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:12px;color:var(--tx3)">Protocol score today:</span>
+          <span id="journal-score-display" style="font-size:13px;font-weight:700;color:var(--green)">—</span>
+          <div style="flex:1"></div>
+          <button class="btn btn-ghost btn-sm" onclick="closeJournalForm()">Cancel</button>
+          <button class="btn btn-gold btn-sm" onclick="saveJournalEntry()" id="journal-save-btn">Save entry</button>
+        </div>
+      </div>
+    </div>
+    <div id="journal-entries"></div>
+    <div id="journal-empty" class="box" style="text-align:center;padding:30px;color:var(--tx3)">No entries yet.<br><span style="font-size:12px">Add your first entry to start tracking how the protocol feels over time.</span></div>
+  </section>
+
+  <!-- SCIENCE -->
+  <section class="page" id="page-science">
+    <div class="ph"><div><div class="ph-title">The Science</div><div class="ph-sub">Core mechanisms — why this protocol works</div></div></div>
+    <div class="card"><div class="tl">
+      <div class="tl-item"><div class="tl-dot" style="background:var(--blue);border-color:var(--blue)"></div><div class="tl-time">Master switch</div><div class="tl-title">mTOR — growth activator, autophagy suppressor</div><div class="tl-desc">Activated by food, insulin, and sugar. When mTOR is ON, autophagy is OFF and cellular growth is ON. Turned OFF by fasting, exercise, green tea EGCG, caloric restriction, and some compounds like berberine and metformin. This is the primary switch you're toggling every time you complete the fast window.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">Energy sensor</div><div class="tl-title">AMPK — the autophagy activator</div><div class="tl-desc">Activated when cellular energy (ATP) is low — during fasting and exercise. AMPK directly phosphorylates and activates ULK1, the initiating kinase of autophagy. Also activated by ginger compounds (6-gingerol), EGCG, berberine, and resveratrol at food-achievable doses for autophagy support.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--teal);border-color:var(--teal)"></div><div class="tl-time">Cellular cleanup</div><div class="tl-title">Autophagy — digesting the damaged</div><div class="tl-desc">Cells form double-membrane vesicles (autophagosomes) that engulf damaged proteins, dysfunctional organelles, and misfolded components, then fuse with lysosomes for digestion and recycling. Works at the level of individual cells — cannot clear established multicellular tumor colonies which have already disabled these pathways.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--amber);border-color:var(--amber)"></div><div class="tl-time">First responders</div><div class="tl-title">NK cells — natural killer immune surveillance</div><div class="tl-desc">Innate immune cells that continuously patrol for abnormal cells — virally infected, pre-cancerous, and cancerous. Kill on contact via perforin and granzyme without prior sensitisation. Activity is suppressed by cortisol, alcohol, poor sleep, and smoking. Activated by garlic allicin, exercise, vitamin D, and adequate sleep.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--amber);border-color:var(--amber)"></div><div class="tl-time">Adaptive killers</div><div class="tl-title">T cells — the targeted immune response</div><div class="tl-desc">CD8+ cytotoxic T cells kill cancer cells via perforin/granzyme and Fas–FasL pathways. Require three signals: antigen recognition (TCR + MHC I), co-stimulation (CD28), and cytokines (IL-2, IL-12). Suppressed by PD-L1 which tumors express. Require zinc, omega-3, and vitamin D to develop and function optimally.</div></div>
+      <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:var(--red);border-color:var(--red)"></div><div class="tl-time">The kill switch</div><div class="tl-title">Apoptosis — programmed cell death</div><div class="tl-desc">Triggered by DNA damage beyond repair, targeted therapy, and T-cell attack. Cancer cells disable their apoptosis pathways — overexpressing Bcl-2 and underexpressing p53 — which is why established tumor colonies cannot be cleared by the natural compounds and food interventions that work at the individual cell level.</div></div>
+    </div></div>
+    <div class="box warn"><b>Prevention vs treatment:</b> Food, fasting, and supplements work at the level of individual cells — preventing damage and clearing pre-cancerous changes before they consolidate. They cannot clear established tumor colonies, which have already rewritten their own rules. That distinction is load-bearing.</div>
+    <div class="section-label">The compounding stack</div>
+    <div class="card">
+      <div style="font-size:13px;line-height:2;color:var(--tx2)">
+        16h fast daily → <b>mTOR suppressed, AMPK + autophagy active</b><br>
+        Fasted morning walk → <b>dual AMPK signal, lymphatic flush</b><br>
+        Morning light → <b>cortisol rhythm reset, circadian repair window set</b><br>
+        2–3L water → <b>lymphatic waste clearance</b><br>
+        Fermented foods → <b>gut immune axis seeded and trained</b><br>
+        D3 + Omega-3 + Zinc → <b>NK and T cell function optimised</b><br>
+        Magnesium → <b>DNA polymerase cofactor, sleep quality</b><br>
+        8h sleep → <b>DNA repair window — peak activity</b><br>
+        No sugar / alcohol → <b>mTOR stays low, NK cells unimpaired</b><br>
+        No smoking → <b>DNA damage stops accumulating faster than cleanup</b><br>
+        <span style="color:var(--green);font-weight:700">= body repair and immune surveillance at close to maximum capacity</span>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- content -->
+
+  <!-- BOTTOM NAV (mobile) -->
+  <nav id="bnav"><div class="bnav-inner">
+    <button class="bnav-btn active" data-page="today" onclick="navTo('today',this)"><span class="bnav-icon">◉</span>Today</button>
+    <button class="bnav-btn" data-page="fasting" onclick="navTo('fasting',this)"><span class="bnav-icon">⏳</span>Fast</button>
+    <button class="bnav-btn" data-page="stress" onclick="navTo('stress',this)"><span class="bnav-icon">◐</span>Stress</button>
+    <button class="bnav-btn" data-page="hydration" onclick="navTo('hydration',this)"><span class="bnav-icon">◍</span>Water</button>
+    <button class="bnav-btn" onclick="toggleSb()"><span class="bnav-icon">≡</span>More</button>
+  </div></nav>
+</div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const HABITS=[
+  {id:'light',label:'Morning light (15–20 min)',sub:'Outside within 30 min of waking',tag:'Cortisol reset',tc:'b'},
+  {id:'fast',label:'Completed 16h fast',sub:'Or currently tracking on Fasting tab',tag:'Autophagy',tc:'g'},
+  {id:'water1',label:'500ml water on waking',sub:'Before coffee — lymphatic flush starts here',tag:'Hydration',tc:'b'},
+  {id:'walk',label:'Fasted morning walk (20+ min)',sub:'Before first meal — dual AMPK signal',tag:'High impact',tc:'g'},
+  {id:'supps',label:'D3, Omega-3, Zinc with food',sub:'With your first meal of the day',tag:'Immune support',tc:'g'},
+  {id:'fermented',label:'Fermented food today',sub:'Kefir, sauerkraut, kimchi, plain yogurt',tag:'Gut axis',tc:'b'},
+  {id:'veg',label:'Cruciferous vegetables',sub:'Broccoli, cabbage — lightly steamed only',tag:'Nrf2 pathway',tc:'b'},
+  {id:'exercise',label:'Resistance exercise',sub:'10×10 pushups + squats + rows',tag:'Muscle + lymph',tc:'g'},
+  {id:'magnesium',label:'Magnesium glycinate (afternoon)',sub:'300–400mg — DNA repair + sleep',tag:'DNA repair',tc:'b'},
+  {id:'breathing',label:'4–7–8 breathing (2 sessions)',sub:'Morning and evening — drops cortisol',tag:'Stress',tc:'a'},
+];
+
+const SCHEDULE=[
+  {time:'7:00',label:'Morning light + 500ml water',sub:'Before anything else. 15–20 min outside.',color:'var(--amber)',hour:7},
+  {time:'7:30',label:'4–7–8 breathing (morning session)',sub:'4 cycles. Drops cortisol before the day begins.',color:'var(--blue)',hour:7.5},
+  {time:'8:00',label:'Fasted morning walk (20–30 min)',sub:'Still fasting — dual AMPK activation.',color:'var(--green)',hour:8},
+  {time:'8:30',label:'Black coffee or ginger tea',sub:'No calories. Still in autophagy window.',color:'var(--mist)',hour:8.5},
+  {time:'12:00',label:'Break fast — first meal',sub:'Hour 16. Eat protein + fat + vegetables. D3, Omega-3, Zinc with food. Garlic, ginger, turmeric in the meal.',color:'var(--green)',hour:12},
+  {time:'15:00',label:'Second meal + Magnesium',sub:'Fermented food, cruciferous veg, fatty fish if possible. 300–400mg magnesium glycinate.',color:'var(--green)',hour:15},
+  {time:'17:00',label:'Resistance exercise',sub:'10×10 pushups + squats. Fed state — post-workout mTOR goes to muscle repair.',color:'var(--teal)',hour:17},
+  {time:'19:30',label:'Evening walk (optional)',sub:'Blunts post-dinner blood sugar. Moves lymph.',color:'var(--mist)',hour:19.5},
+  {time:'20:00',label:'Eating window closes',sub:'Fast begins again. Ginger or green tea only from here.',color:'var(--amber)',hour:20},
+  {time:'21:00',label:'No screens. Wind down.',sub:'Dim light, ginger tea, 4–7–8 breathing.',color:'var(--blue)',hour:21},
+  {time:'22:00',label:'Sleep — DNA repair window',sub:'7–8 hours non-negotiable. Most repair happens here.',color:'var(--purple)',hour:22},
+];
+
+const MILESTONES=[[20/60,'20 min: blood pressure normalises'],[8,'8h: carbon monoxide half-life done'],[24,'24h: heart attack risk begins to drop'],[48,'48h: taste and smell returning'],[72,'72h: nicotine fully cleared — physical addiction over'],[168,'1 week: circulation improving'],[336,'2 weeks: lung cilia regrowing'],[720,'1 month: immune function measurably improving'],[2160,'3 months: NK cell activity normalising']];
+
+const TITLES={today:'Today',schedule:'Schedule',fasting:'Fasting',exercise:'Exercise',supplements:'Supplements',food:'Food',hydration:'Hydration',stress:'Stress',gut:'Gut Health',smoking:'Quit Smoking',journal:'Journal',science:'The Science'};
+
+function tKey(){return 'bod_'+new Date().toISOString().slice(0,10)}
+function getS(){try{return JSON.parse(localStorage.getItem(tKey())||'{}')}catch{return{}}}
+function setS(s){try{localStorage.setItem(tKey(),JSON.stringify(s))}catch{}}
+function getW(){try{return parseInt(localStorage.getItem('bod_w_'+new Date().toISOString().slice(0,10))||'0')}catch{return 0}}
+function setW(n){try{localStorage.setItem('bod_w_'+new Date().toISOString().slice(0,10),n)}catch{}}
+
+function renderChecklist(){
+  const s=getS(),cl=document.getElementById('checklist');
+  if(!cl)return;
+  cl.innerHTML=HABITS.map(h=>{
+    const d=!!s[h.id];
+    const tagColor={g:'bdg-g',b:'bdg-b',a:'bdg-a'}[h.tc]||'bdg-d';
+    return`<div class="check-item" onclick="toggleHabit('${h.id}')">
+      <div class="check-box${d?' done':''}">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+      </div>
+      <div class="check-txt">
+        <div class="check-label">${h.label}</div>
+        <div class="check-sub">${h.sub}</div>
+        <span class="check-badge badge ${tagColor}">${h.tag}</span>
+      </div>
+    </div>`;
+  }).join('');
+  updateProgress();
+}
+
+function toggleHabit(id){
+  const s=getS();s[id]=!s[id];if(!s[id])delete s[id];
+  setS(s);renderChecklist();
+  const done=HABITS.filter(h=>s[h.id]).length;
+  if(s[id]&&done===HABITS.length)toast('Protocol complete today!','ok');
+}
+
+function resetDay(){
+  try{localStorage.removeItem(tKey())}catch{}
+  renderChecklist();toast('Day reset','info');
+}
+
+function updateProgress(){
+  const s=getS();
+  const done=HABITS.filter(h=>s[h.id]).length,total=HABITS.length;
+  const pct=Math.round(done/total*100);
+  document.getElementById('prog-count').textContent=done+' / '+total;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('nav-score').textContent=pct+'%';
+  renderStreak();
+}
+
+function renderStreak(){
+  const el=document.getElementById('streak-grid');if(!el)return;
+  const days=['S','M','T','W','T','F','S'],today=new Date();
+  el.innerHTML=Array.from({length:7},(_,i)=>{
+    const d=new Date(today);d.setDate(d.getDate()-(6-i));
+    const key='bod_'+d.toISOString().slice(0,10);
+    let data={};try{data=JSON.parse(localStorage.getItem(key)||'{}')}catch{}
+    const cnt=HABITS.filter(h=>data[h.id]).length;
+    const cls=cnt>=HABITS.length*0.8?'done':cnt>=HABITS.length*0.4?'partial':'';
+    return`<div class="streak-day ${cls}${i===6?' today':''}" title="${cnt}/${HABITS.length} habits">${days[d.getDay()]}</div>`;
+  }).join('');
+}
+
+function renderSchedule(){
+  const el=document.getElementById('schedule-list');if(!el)return;
+  const now=new Date();
+  const curH=now.getHours()+now.getMinutes()/60;
+  let insertedNow=false;
+  let html='';
+  SCHEDULE.forEach((item,i)=>{
+    const next=SCHEDULE[i+1];
+    const isCurrent=item.hour<=curH&&(!next||next.hour>curH);
+    if(!insertedNow&&item.hour>curH){
+      const h=String(now.getHours()).padStart(2,'0'),m=String(now.getMinutes()).padStart(2,'0');
+      html+=`<div class="now-indicator"><div class="now-dot"></div><div class="now-line"></div><div class="now-label">${h}:${m} now</div></div>`;
+      insertedNow=true;
+    }
+    html+=`<div class="sched-item${isCurrent?' current':''}">
+      <div class="sched-time">${item.time}</div>
+      <div class="sched-dot" style="background:${item.color}"></div>
+      <div class="sched-content">
+        <div class="sched-title">${item.label}</div>
+        <div class="sched-sub">${item.sub}</div>
+      </div>
+    </div>`;
+  });
+  if(!insertedNow){
+    const h=String(now.getHours()).padStart(2,'0'),m=String(now.getMinutes()).padStart(2,'0');
+    html+=`<div class="now-indicator"><div class="now-dot"></div><div class="now-line"></div><div class="now-label">${h}:${m} now</div></div>`;
+  }
+  el.innerHTML=html;
+}
+
+// FASTING
+let fastStart=null,fastInt=null;
+function startFast(){
+  const v=document.getElementById('last-meal').value;if(!v)return;
+  const[h,m]=v.split(':').map(Number);
+  fastStart=new Date();fastStart.setHours(h,m,0,0);
+  if(fastStart>new Date())fastStart.setDate(fastStart.getDate()-1);
+  try{localStorage.setItem('bod_fs',fastStart.toISOString())}catch{}
+  runFastTimer();toast('Fasting timer started','info');
+}
+function fastNow(){
+  fastStart=new Date();
+  const n=new Date();
+  document.getElementById('last-meal').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  try{localStorage.setItem('bod_fs',fastStart.toISOString())}catch{}
+  runFastTimer();toast('Fasting timer started','info');
+}
+function runFastTimer(){
+  if(fastInt)clearInterval(fastInt);
+  fastInt=setInterval(()=>{
+    if(!fastStart)return;
+    const diff=Math.floor((Date.now()-fastStart)/1000);
+    if(diff<0){document.getElementById('fast-timer').textContent='00:00:00';return;}
+    const h=Math.floor(diff/3600),m=Math.floor((diff%3600)/60),s=diff%60;
+    document.getElementById('fast-timer').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    const hrs=diff/3600;
+    let st='',cl='var(--tx3)';
+    if(hrs<12)st='Building up — '+Math.round(12-hrs)+'h until autophagy window opens';
+    else if(hrs<16){st='Getting close — '+(Math.round((16-hrs)*10)/10)+'h to target';cl='var(--amber)'}
+    else if(hrs<18){st='✓ Autophagy active — target reached';cl='var(--green)'}
+    else if(hrs<24){st='Peak autophagy running — cellular cleanup underway';cl='var(--green)'}
+    else{st='Extended fast — consider breaking soon'}
+    const el=document.getElementById('fast-status');el.textContent=st;el.style.color=cl;
+  },1000);
+}
+
+// BREATHING
+let bActive=false,bTimeout=null,bCycle=0;
+function startBreath(){
+  if(bActive){
+    bActive=false;clearTimeout(bTimeout);
+    document.getElementById('breath-btn').textContent='Start 4 cycles';
+    document.getElementById('breath-phase').textContent='';
+    document.getElementById('breath-txt').textContent='Ready';
+    document.getElementById('breath-ring').style.transform='scale(1)';
+    document.getElementById('breath-count').textContent='';
+    return;
+  }
+  bActive=true;bCycle=0;document.getElementById('breath-btn').textContent='Stop';
+  runBreath();
+}
+function runBreath(){
+  if(!bActive)return;
+  const phases=[{t:'Inhale',d:4000,sc:1.38,c:'var(--green)'},{t:'Hold',d:7000,sc:1.38,c:'var(--amber)'},{t:'Exhale',d:8000,sc:1,c:'var(--blue)'}];
+  let pi=0;
+  const ring=document.getElementById('breath-ring'),txt=document.getElementById('breath-txt'),phase=document.getElementById('breath-phase'),cnt=document.getElementById('breath-count');
+  function next(){
+    if(!bActive)return;
+    if(pi>=phases.length){
+      bCycle++;cnt.textContent='Cycle '+bCycle+' of 4';
+      if(bCycle>=4){bActive=false;document.getElementById('breath-btn').textContent='Start 4 cycles';phase.textContent='Complete — cortisol dropping';toast('Breathing complete. Cortisol dropping.','ok');return;}
+      pi=0;
+    }
+    const p=phases[pi];
+    txt.textContent=p.t;phase.textContent=p.t+' · '+p.d/1000+' seconds';
+    ring.style.transform='scale('+p.sc+')';ring.style.borderColor=p.c;txt.style.color=p.c;
+    pi++;bTimeout=setTimeout(next,p.d);
+  }
+  next();
+}
+
+// WATER
+let waterCount=0;
+function renderWater(){
+  waterCount=getW();
+  const el=document.getElementById('water-dots');if(!el)return;
+  el.innerHTML=Array.from({length:8},(_,i)=>`<div class="water-dot" style="background:${i<waterCount?'var(--blue)':'var(--bd)'};${i<waterCount?'transform:scale(1.1)':''}"></div>`).join('');
+  document.getElementById('water-count').textContent=waterCount+' / 8';
+  document.getElementById('water-ml').textContent=(waterCount*250).toLocaleString()+'ml of 2,000ml';
+}
+function addWater(){
+  if(waterCount>=12)return;
+  setW(waterCount+1);renderWater();
+  if(waterCount===8)toast('2L reached — lymph is flowing','ok');
+  else toast('Water logged +'+(waterCount*250)+'ml total','info');
+}
+function resetWater(){setW(0);renderWater()}
+
+// QUIT TIMER
+let quitStart=null,quitInt=null;
+function setQuit(){
+  const v=document.getElementById('quit-date').value;if(!v)return;
+  quitStart=new Date(v);try{localStorage.setItem('bod_qs',quitStart.toISOString())}catch{}
+  runQuitTimer();
+}
+function quitNow(){
+  quitStart=new Date();
+  const n=new Date(),loc=new Date(n-n.getTimezoneOffset()*60000).toISOString().slice(0,16);
+  document.getElementById('quit-date').value=loc;
+  try{localStorage.setItem('bod_qs',quitStart.toISOString())}catch{}
+  runQuitTimer();toast('Quit timer started. You can do this.','ok');
+}
+function runQuitTimer(){
+  if(quitInt)clearInterval(quitInt);
+  quitInt=setInterval(()=>{
+    if(!quitStart)return;
+    const diff=Math.max(0,Math.floor((Date.now()-quitStart)/1000));
+    const h=Math.floor(diff/3600),m=Math.floor((diff%3600)/60),s=diff%60;
+    document.getElementById('quit-timer').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    const hrs=diff/3600;let ms='';
+    for(let i=MILESTONES.length-1;i>=0;i--){if(hrs>=MILESTONES[i][0]){ms='✓ '+MILESTONES[i][1];break;}}
+    document.getElementById('quit-milestone').textContent=ms;
+  },1000);
+}
+
+// JOURNAL
+let editingJournalIndex = null;
+
+function getEditor(){return document.getElementById('journal-editor')}
+
+function applyFontFamily(v){getEditor().style.fontFamily=v;getEditor().focus()}
+function applyFontSize(v){getEditor().style.fontSize=v;getEditor().focus()}
+function fmtCmd(cmd){
+  document.execCommand(cmd,false,null);
+  updateFmtBtns();
+  getEditor().focus();
+}
+function updateFmtBtns(){
+  ['bold','italic','underline'].forEach(cmd=>{
+    const el=document.getElementById('fmt-'+cmd[0]);
+    if(el)el.classList.toggle('on',document.queryCommandState(cmd));
+  });
+}
+
+function openJournalForm(editIndex){
+  editingJournalIndex = (editIndex !== undefined) ? editIndex : null;
+  const el=document.getElementById('journal-form');el.style.display='block';
+  const s=getS();const done=HABITS.filter(h=>s[h.id]).length;
+  document.getElementById('journal-entry-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+  document.getElementById('journal-score-display').textContent=done+'/'+HABITS.length+' habits';
+  document.getElementById('journal-form-title').textContent = editingJournalIndex !== null ? 'Edit entry' : 'New entry';
+  document.getElementById('journal-save-btn').textContent = editingJournalIndex !== null ? 'Update entry' : 'Save entry';
+  const editor = getEditor();
+  if(editingJournalIndex !== null){
+    const entries=getJournalEntries();
+    const e=entries[editingJournalIndex];
+    editor.innerHTML = e.html || (e.text||'').replace(/\n/g,'<br>');
+    if(e.fontFamily){editor.style.fontFamily=e.fontFamily;const fs=document.getElementById('fmt-font');if(fs)fs.value=e.fontFamily;}
+    if(e.fontSize){editor.style.fontSize=e.fontSize;const fz=document.getElementById('fmt-size');if(fz)fz.value=e.fontSize;}
+  } else {
+    editor.innerHTML='';
+    editor.style.fontFamily='';
+    editor.style.fontSize='13px';
+    const fs=document.getElementById('fmt-font');if(fs)fs.selectedIndex=0;
+    const fz=document.getElementById('fmt-size');if(fz)fz.value='13px';
+  }
+  editor.focus();
+}
+
+function closeJournalForm(){
+  document.getElementById('journal-form').style.display='none';
+  getEditor().innerHTML='';
+  editingJournalIndex=null;
+}
+
+function saveJournalEntry(){
+  const editor=getEditor();
+  const html=editor.innerHTML.trim();
+  const plain=editor.innerText.trim();
+  if(!plain)return;
+  const s=getS();const done=HABITS.filter(h=>s[h.id]).length;
+  const entries=getJournalEntries();
+  const fontFamily=editor.style.fontFamily||'';
+  const fontSize=editor.style.fontSize||'13px';
+  const entry={date:new Date().toISOString(),html,text:plain,score:done,total:HABITS.length,fontFamily,fontSize};
+  if(editingJournalIndex !== null){
+    entry.date = entries[editingJournalIndex].date; // keep original date
+    entry.editedAt = new Date().toISOString();
+    entries[editingJournalIndex]=entry;
+    toast('Entry updated','ok');
+  } else {
+    entries.unshift(entry);
+    toast('Entry saved','ok');
+  }
+  try{localStorage.setItem('bod_journal',JSON.stringify(entries.slice(0,50)))}catch{}
+  closeJournalForm();renderJournal();
+}
+
+function editJournalEntry(i){
+  openJournalForm(i);
+  document.querySelector('.content').scrollTop=0;
+}
+
+function deleteJournalEntry(i){
+  if(!confirm('Delete this journal entry?'))return;
+  const entries=getJournalEntries();
+  entries.splice(i,1);
+  try{localStorage.setItem('bod_journal',JSON.stringify(entries))}catch{}
+  renderJournal();toast('Entry deleted','warn');
+}
+
+function getJournalEntries(){try{return JSON.parse(localStorage.getItem('bod_journal')||'[]')}catch{return[]}}
+
+function renderJournal(){
+  const entries=getJournalEntries();
+  const el=document.getElementById('journal-entries');
+  const empty=document.getElementById('journal-empty');
+  if(!entries.length){el.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+  el.innerHTML=entries.map((e,i)=>{
+    const d=new Date(e.date);
+    const dateStr=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const timeStr=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    const pct=Math.round((e.score||0)/(e.total||10)*100);
+    const editedNote=e.editedAt?` <span style="color:var(--tx3);font-style:italic;font-weight:400">· edited</span>`:'';
+    const fontStyle=`${e.fontFamily?`font-family:${e.fontFamily};`:''}${e.fontSize?`font-size:${e.fontSize};`:''}`;
+    const bodyHtml = e.html || (e.text||'').replace(/\n/g,'<br>');
+    return`<div class="journal-entry">
+      <div class="entry-meta">
+        <div class="entry-date">${dateStr} · ${timeStr}${editedNote}</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="entry-score">${e.score||0}/${e.total||10} — ${pct}%</div>
+          <div class="entry-actions">
+            <button class="entry-act" onclick="editJournalEntry(${i})" title="Edit">✏️ Edit</button>
+            <button class="entry-act del" onclick="deleteJournalEntry(${i})" title="Delete">🗑 Delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="entry-text" style="${fontStyle}">${bodyHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+// Update fmt button state on selection change
+document.addEventListener('selectionchange',()=>{
+  if(document.activeElement===document.getElementById('journal-editor'))updateFmtBtns();
+});
+
+// NAV
+function navTo(page,el){
+  document.querySelectorAll('.nav-item').forEach(l=>l.classList.remove('active'));
+  const li=document.querySelector(`.nav-item[data-page="${page}"]`);if(li)li.classList.add('active');
+  document.querySelectorAll('.bnav-btn[data-page]').forEach(b=>b.classList.remove('active'));
+  if(el&&el.dataset&&el.dataset.page)el.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=document.getElementById('page-'+page);if(pg)pg.classList.add('active');
+  document.getElementById('page-title').textContent=TITLES[page]||page;
+  document.querySelector('.content').scrollTop=0;
+  closeSb();
+  if(page==='today')renderChecklist();
+  if(page==='hydration')renderWater();
+  if(page==='schedule')renderSchedule();
+  if(page==='journal')renderJournal();
+}
+document.querySelectorAll('.nav-item[data-page]').forEach(li=>li.addEventListener('click',()=>navTo(li.dataset.page,li)));
+function toggleSb(){document.getElementById('app').classList.toggle('sbo')}
+function closeSb(){document.getElementById('app').classList.remove('sbo')}
+function toggleTheme(){
+  document.getElementById('app').classList.toggle('dk');
+  const dk=document.getElementById('app').classList.contains('dk');
+  document.getElementById('thm-btn').textContent=dk?'☀️':'🌙';
+  try{localStorage.setItem('bod_theme',dk?'dk':'lt')}catch{}
+}
+
+// TOAST
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=(type==='ok'?'✓  ':type==='warn'?'⚠  ':'ℹ  ')+msg;
+  t.className='show '+type;clearTimeout(t._t);
+  t._t=setTimeout(()=>t.className='',3200);
+}
+
+// INIT
+try{if(localStorage.getItem('bod_theme')==='dk'){document.getElementById('app').classList.add('dk');document.getElementById('thm-btn').textContent='☀️'}}catch{}
+try{const fs=localStorage.getItem('bod_fs');if(fs){fastStart=new Date(fs);runFastTimer()}}catch{}
+try{const qs=localStorage.getItem('bod_qs');if(qs){quitStart=new Date(qs);runQuitTimer()}}catch{}
+
+const dn=new Date();
+const dateEl=document.getElementById('today-date');
+if(dateEl)dateEl.textContent=dn.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+renderChecklist();
+renderWater();
+</script>
