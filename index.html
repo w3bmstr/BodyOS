@@ -259,6 +259,25 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
 .now-line{flex:1;height:1px;background:var(--green);opacity:.4}
 .now-label{font-size:10px;font-weight:700;color:var(--green);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
 
+/* SOS BUTTON */
+#sos-btn{position:fixed;right:16px;bottom:16px;z-index:250;width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;border:none;box-shadow:0 4px 16px rgba(224,64,96,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .15s;line-height:1}
+#sos-btn:active{transform:scale(.92)}
+
+/* SOS MODAL */
+#sos-overlay{display:none;position:fixed;inset:0;background:rgba(10,12,18,.72);z-index:400;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+#sos-overlay.show{display:flex}
+#sos-panel{position:relative;background:var(--sf);width:100%;max-width:460px;border-radius:20px 20px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto;animation:sosUp .25s ease}
+@keyframes sosUp{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.sos-title{font-size:19px;font-weight:700;color:var(--tx);letter-spacing:-.3px}
+.sos-sub{font-size:12.5px;color:var(--tx3);margin-top:3px;line-height:1.5}
+.sos-tags{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+.sos-tag{padding:7px 13px;border-radius:99px;border:1.5px solid var(--bd);background:var(--bg);font-size:12px;font-weight:600;color:var(--tx2);cursor:pointer;transition:all .14s;-webkit-user-select:none;user-select:none}
+.sos-tag.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+#app.dk .sos-tag.sel{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.sos-actions{display:flex;gap:8px;margin-top:16px}
+.sos-actions .btn{flex:1;justify-content:center;padding:12px}
+.sos-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:var(--tx3);cursor:pointer;padding:4px;line-height:1}
+
 /* RESPONSIVE */
 @media(max-width:640px){
   #sb{position:absolute;top:0;bottom:0;left:0;transform:translateX(-100%)}
@@ -269,6 +288,7 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
   .stats{grid-template-columns:1fr 1fr}
   .grid2{grid-template-columns:1fr}
   .timer-val{font-size:38px}
+  #sos-btn{bottom:calc(60px + env(safe-area-inset-bottom));right:14px;width:50px;height:50px;font-size:19px}
 }
 @media(max-width:380px){.stats{grid-template-columns:1fr}}
 </style>
@@ -311,6 +331,7 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
       <div class="avatar">YO</div>
       <div><div class="user-name">Your Protocol</div><div class="user-role">Immune support · BC</div></div>
     </div>
+    <div style="font-size:9.5px;line-height:1.5;color:var(--slate);padding:10px 8px 2px">Personal project, not medical advice. Consult a doctor before making health changes.</div>
   </div>
 </aside>
 
@@ -525,6 +546,27 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
         <button onclick="quitNow()" class="btn btn-gold">Quitting now</button>
       </div>
     </div>
+    <div class="box info">Craving right now? Tap the 🆘 button in the corner — anywhere in the app — for guided breathing and a place to log it.</div>
+
+    <div class="section-label">Your impact</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Cigarettes avoided</div><div class="stat-val cv-g" id="stat-cigs-avoided">0</div><div class="stat-meta">This streak</div></div>
+      <div class="stat"><div class="stat-label">Money saved</div><div class="stat-val cv-gold" id="stat-money-saved">$0</div><div class="stat-meta">This streak</div></div>
+      <div class="stat"><div class="stat-label">Best streak</div><div class="stat-val cv-b" id="stat-best-streak">0 days</div><div class="stat-meta">Personal record</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:10px">Your baseline (before quitting)</div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+        <div><label style="font-size:11px;color:var(--tx3);display:block;margin-bottom:3px">Cigarettes/day</label><input type="text" inputmode="numeric" id="base-cigs" style="width:64px" onchange="saveBaseline()"></div>
+        <div><label style="font-size:11px;color:var(--tx3);display:block;margin-bottom:3px">Price/pack ($)</label><input type="text" inputmode="decimal" id="base-price" style="width:74px" onchange="saveBaseline()"></div>
+        <div><label style="font-size:11px;color:var(--tx3);display:block;margin-bottom:3px">Cigs/pack</label><input type="text" inputmode="numeric" id="base-perpack" style="width:64px" onchange="saveBaseline()"></div>
+      </div>
+    </div>
+
+    <div class="section-label">Cravings — resisted vs slipped</div>
+    <div class="card" id="craving-summary"></div>
+    <div class="card" id="craving-history"></div>
+
     <div class="section-label">The strategy</div>
     <div class="grid2">
       <div class="card"><div class="card-row"><div><div class="card-title">Physical addiction ends at 72h</div><div class="card-body">Nicotine fully clears in 3 days. After that the craving is entirely the habit loop — trigger, reach, ritual, relief. The chemical dependency is gone. What remains is behavioural.</div></div><span class="badge bdg-b" style="margin-left:8px">Know this</span></div></div>
@@ -578,6 +620,7 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
   <!-- SCIENCE -->
   <section class="page" id="page-science">
     <div class="ph"><div><div class="ph-title">The Science</div><div class="ph-sub">Core mechanisms — why this protocol works</div></div></div>
+    <div class="box warn"><b>Not medical advice.</b> This page reflects general biology and personal research, not a diagnosis or treatment plan. It is not a substitute for care from a qualified doctor — talk to one before making changes based on anything here.</div>
     <div class="card"><div class="tl">
       <div class="tl-item"><div class="tl-dot" style="background:var(--blue);border-color:var(--blue)"></div><div class="tl-time">Master switch</div><div class="tl-title">mTOR — growth activator, autophagy suppressor</div><div class="tl-desc">Activated by food, insulin, and sugar. When mTOR is ON, autophagy is OFF and cellular growth is ON. Turned OFF by fasting, exercise, green tea EGCG, caloric restriction, and some compounds like berberine and metformin. This is the primary switch you're toggling every time you complete the fast window.</div></div>
       <div class="tl-item"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">Energy sensor</div><div class="tl-title">AMPK — the autophagy activator</div><div class="tl-desc">Activated when cellular energy (ATP) is low — during fasting and exercise. AMPK directly phosphorylates and activates ULK1, the initiating kinase of autophagy. Also activated by ginger compounds (6-gingerol), EGCG, berberine, and resveratrol at food-achievable doses for autophagy support.</div></div>
@@ -619,6 +662,55 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
 </div>
 
 <div id="toast"></div>
+
+<button id="sos-btn" onclick="openSOS()" title="Craving? Tap for help">🆘</button>
+
+<div id="sos-overlay" onclick="if(event.target===this)closeSOS()">
+  <div id="sos-panel">
+    <button class="sos-close" onclick="closeSOS()">✕</button>
+    <div id="sos-step1">
+      <div class="sos-title">This will pass</div>
+      <div class="sos-sub">Cravings peak and fade within 3–5 minutes. Breathe with the circle until it does.</div>
+      <div class="timer-center" style="padding:14px 0">
+        <div id="sos-ring" style="width:100px;height:100px;border-radius:50%;border:3px solid var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;transition:transform .6s ease,border-color .4s">
+          <div id="sos-breath-txt" style="font-size:15px;font-weight:700;color:var(--blue)">Breathe</div>
+        </div>
+        <div id="sos-breath-phase" style="font-size:12.5px;color:var(--tx3);min-height:16px"></div>
+      </div>
+      <div id="sos-streak" style="text-align:center;font-size:12px;color:var(--tx3);margin-bottom:14px"></div>
+      <div class="sos-sub" style="margin-bottom:2px;font-weight:600;color:var(--tx2)">What triggered this? (optional)</div>
+      <div class="sos-tags">
+        <div class="sos-tag" onclick="selectSosTag(this,'Stress')">Stress</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'Boredom')">Boredom</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'After meal')">After meal</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'Social')">Social</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'Alcohol')">Alcohol</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'Driving')">Driving</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'Coffee')">Coffee</div>
+        <div class="sos-tag" onclick="selectSosTag(this,'Other')">Other</div>
+      </div>
+      <div class="sos-actions">
+        <button class="btn btn-ghost" onclick="logCraving('smoked')">I smoked</button>
+        <button class="btn btn-green" onclick="logCraving('resisted')">I'm okay now</button>
+      </div>
+    </div>
+    <div id="sos-step2" style="display:none">
+      <div class="sos-title">That's okay — it's data, not failure</div>
+      <div class="sos-sub">You don't lose the progress you already made. Log it and keep going.</div>
+      <div style="text-align:center;padding:20px 0">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx3);margin-bottom:10px">How many cigarettes?</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:18px">
+          <button class="btn btn-ghost" style="width:40px;height:40px;padding:0;border-radius:50%;font-size:18px" onclick="sosCigAdjust(-1)">−</button>
+          <div id="sos-cig-count" style="font-size:32px;font-weight:700;color:var(--tx);min-width:40px;text-align:center">1</div>
+          <button class="btn btn-ghost" style="width:40px;height:40px;padding:0;border-radius:50%;font-size:18px" onclick="sosCigAdjust(1)">+</button>
+        </div>
+      </div>
+      <div class="sos-actions">
+        <button class="btn btn-gold" style="flex:1" onclick="confirmSlip()">Log & restart streak</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 const HABITS=[
@@ -858,6 +950,151 @@ function runQuitTimer(){
   },1000);
 }
 
+// CRAVING SOS
+let sosTag='',sosBreathTimeout=null,sosBreathActive=false,sosCigCount=1;
+
+function getBaseline(){try{return JSON.parse(localStorage.getItem('bod_smoke_baseline')||'{}')}catch{return{}}}
+function getCravingLog(){try{return JSON.parse(localStorage.getItem('bod_craving_log')||'[]')}catch{return[]}}
+function getSlips(){try{return JSON.parse(localStorage.getItem('bod_quit_slips')||'[]')}catch{return[]}}
+
+function openSOS(){
+  document.getElementById('sos-overlay').classList.add('show');
+  document.getElementById('sos-step1').style.display='block';
+  document.getElementById('sos-step2').style.display='none';
+  sosTag='';
+  document.querySelectorAll('.sos-tag').forEach(t=>t.classList.remove('sel'));
+  const qs=localStorage.getItem('bod_qs');
+  const el=document.getElementById('sos-streak');
+  if(qs){
+    const diff=Math.max(0,Math.floor((Date.now()-new Date(qs))/1000));
+    const d=Math.floor(diff/86400),h=Math.floor((diff%86400)/3600),m=Math.floor((diff%3600)/60);
+    el.textContent=d+'d '+h+'h '+m+'m smoke-free so far';
+  } else {
+    el.textContent='';
+  }
+  sosBreathActive=true;
+  runSosBreath();
+}
+function closeSOS(){
+  document.getElementById('sos-overlay').classList.remove('show');
+  sosBreathActive=false;clearTimeout(sosBreathTimeout);
+}
+function selectSosTag(el,tag){
+  document.querySelectorAll('.sos-tag').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');sosTag=tag;
+}
+function runSosBreath(){
+  if(!sosBreathActive)return;
+  const phases=[{t:'Inhale',d:4000,sc:1.35,c:'var(--green)'},{t:'Hold',d:7000,sc:1.35,c:'var(--amber)'},{t:'Exhale',d:8000,sc:1,c:'var(--blue)'}];
+  let pi=0;
+  const ring=document.getElementById('sos-ring'),txt=document.getElementById('sos-breath-txt'),phase=document.getElementById('sos-breath-phase');
+  function next(){
+    if(!sosBreathActive)return;
+    if(pi>=phases.length)pi=0;
+    const p=phases[pi];
+    txt.textContent=p.t;phase.textContent=p.t+' · '+p.d/1000+'s';
+    if(ring){ring.style.transform='scale('+p.sc+')';ring.style.borderColor=p.c;}
+    if(txt)txt.style.color=p.c;
+    pi++;sosBreathTimeout=setTimeout(next,p.d);
+  }
+  next();
+}
+function logCraving(outcome){
+  if(outcome==='resisted'){
+    const log=getCravingLog();
+    log.unshift({date:new Date().toISOString(),trigger:sosTag||'Not specified',outcome:'resisted'});
+    try{localStorage.setItem('bod_craving_log',JSON.stringify(log.slice(0,200)))}catch{}
+    closeSOS();
+    toast('Craving logged. You held the line.','ok');
+    renderSmokingPage();
+  } else {
+    document.getElementById('sos-step1').style.display='none';
+    document.getElementById('sos-step2').style.display='block';
+    sosBreathActive=false;clearTimeout(sosBreathTimeout);
+    sosCigCount=1;
+    document.getElementById('sos-cig-count').textContent=sosCigCount;
+  }
+}
+function sosCigAdjust(delta){
+  sosCigCount=Math.max(1,sosCigCount+delta);
+  document.getElementById('sos-cig-count').textContent=sosCigCount;
+}
+function confirmSlip(){
+  const qs=localStorage.getItem('bod_qs');
+  let streakDays=0;
+  if(qs)streakDays=Math.floor((Date.now()-new Date(qs))/86400000);
+  const slips=getSlips();
+  slips.unshift({date:new Date().toISOString(),cigs:sosCigCount,trigger:sosTag||'Not specified',outcome:'smoked'});
+  try{localStorage.setItem('bod_quit_slips',JSON.stringify(slips.slice(0,200)))}catch{}
+  const best=parseInt(localStorage.getItem('bod_quit_best')||'0');
+  if(streakDays>best){try{localStorage.setItem('bod_quit_best',streakDays)}catch{}}
+  const now=new Date();
+  try{localStorage.setItem('bod_qs',now.toISOString())}catch{}
+  quitStart=now;runQuitTimer();
+  closeSOS();
+  toast("Logged. That's okay — streak restarted, keep going.",'warn');
+  renderSmokingPage();
+}
+
+function saveBaseline(){
+  const cigs=parseFloat(document.getElementById('base-cigs').value)||0;
+  const price=parseFloat(document.getElementById('base-price').value)||0;
+  const perpack=parseFloat(document.getElementById('base-perpack').value)||20;
+  try{localStorage.setItem('bod_smoke_baseline',JSON.stringify({cigs,price,perpack}))}catch{}
+  renderSmokingPage();
+}
+
+function renderSmokingPage(){
+  const b=getBaseline();
+  const bc=document.getElementById('base-cigs'),bp=document.getElementById('base-price'),bpp=document.getElementById('base-perpack');
+  if(bc&&document.activeElement!==bc)bc.value=b.cigs||'';
+  if(bp&&document.activeElement!==bp)bp.value=b.price||'';
+  if(bpp&&document.activeElement!==bpp)bpp.value=b.perpack||20;
+
+  const qs=localStorage.getItem('bod_qs');
+  let streakDays=0;
+  if(qs)streakDays=(Date.now()-new Date(qs))/86400000;
+  const cigsPerDay=b.cigs||0,price=b.price||0,perPack=b.perpack||20;
+  const cigsAvoided=Math.max(0,Math.floor(streakDays*cigsPerDay));
+  const moneySaved=perPack>0?(cigsAvoided/perPack*price):0;
+  const bestStreak=Math.max(parseInt(localStorage.getItem('bod_quit_best')||'0'),Math.floor(streakDays));
+
+  const elCigs=document.getElementById('stat-cigs-avoided');if(elCigs)elCigs.textContent=cigsAvoided.toLocaleString();
+  const elMoney=document.getElementById('stat-money-saved');if(elMoney)elMoney.textContent='$'+moneySaved.toFixed(2);
+  const elBest=document.getElementById('stat-best-streak');if(elBest)elBest.textContent=bestStreak+' day'+(bestStreak===1?'':'s');
+
+  const log=getCravingLog(),slips=getSlips();
+  const resisted=log.filter(l=>l.outcome==='resisted').length;
+  const smoked=slips.length;
+  const total=resisted+smoked;
+  const rate=total>0?Math.round(resisted/total*100):100;
+  const summaryEl=document.getElementById('craving-summary');
+  if(summaryEl){
+    summaryEl.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <div><div style="font-size:20px;font-weight:700;color:var(--tx)">${resisted} resisted<span style="color:var(--tx3);font-weight:500;font-size:13px"> · ${smoked} slipped</span></div>
+      <div style="font-size:12px;color:var(--tx3);margin-top:2px">${total>0?rate+'% of cravings you rode out':'Use the 🆘 button when a craving hits'}</div></div>
+      <span class="badge ${rate>=70?'bdg-g':rate>=40?'bdg-a':'bdg-d'}" style="flex-shrink:0">${total} total</span>
+    </div>`;
+  }
+  const histEl=document.getElementById('craving-history');
+  if(histEl){
+    const combined=[...log,...slips].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
+    if(!combined.length){
+      histEl.innerHTML='<div style="font-size:12.5px;color:var(--tx3)">No entries yet. Tap the 🆘 button next time a craving hits.</div>';
+    } else {
+      histEl.innerHTML=combined.map(e=>{
+        const d=new Date(e.date);
+        const ds=d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+        const ok=e.outcome==='resisted';
+        return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)">
+          <div><div style="font-size:12.5px;font-weight:600;color:var(--tx)">${e.trigger||'Not specified'}</div><div style="font-size:11px;color:var(--tx3)">${ds}</div></div>
+          <span class="badge ${ok?'bdg-g':'bdg-r'}">${ok?'Resisted':'Smoked'+(e.cigs?' ('+e.cigs+')':'')}</span>
+        </div>`;
+      }).join('');
+    }
+  }
+}
+
 // JOURNAL
 let editingJournalIndex = null;
 
@@ -996,6 +1233,7 @@ function navTo(page,el){
   if(page==='hydration')renderWater();
   if(page==='schedule')renderSchedule();
   if(page==='journal')renderJournal();
+  if(page==='smoking')renderSmokingPage();
 }
 document.querySelectorAll('.nav-item[data-page]').forEach(li=>li.addEventListener('click',()=>navTo(li.dataset.page,li)));
 function toggleSb(){document.getElementById('app').classList.toggle('sbo')}
