@@ -563,7 +563,10 @@ input[type=time]:focus,input[type=datetime-local]:focus,input[type=text]:focus,t
       </div>
     </div>
 
-    <div class="section-label">Cravings — resisted vs slipped</div>
+    <div class="section-label" style="display:flex;justify-content:space-between;align-items:center">
+      <span>Cravings — resisted vs slipped</span>
+      <span onclick="resetCravings()" style="cursor:pointer;color:var(--tx3);text-transform:none;letter-spacing:normal;font-weight:600;font-size:11px">Reset</span>
+    </div>
     <div class="card" id="craving-summary"></div>
     <div class="card" id="craving-history"></div>
 
@@ -954,6 +957,11 @@ function runQuitTimer(){
 let sosTag='',sosBreathTimeout=null,sosBreathActive=false,sosCigCount=1;
 
 function getBaseline(){try{return JSON.parse(localStorage.getItem('bod_smoke_baseline')||'{}')}catch{return{}}}
+function resetCravings(){
+  if(!confirm('Reset all craving history? This clears your resisted/slipped log and cannot be undone.'))return;
+  try{localStorage.removeItem('bod_craving_log');localStorage.removeItem('bod_quit_slips')}catch{}
+  renderQuitStats();
+}
 function getCravingLog(){try{return JSON.parse(localStorage.getItem('bod_craving_log')||'[]')}catch{return[]}}
 function getSlips(){try{return JSON.parse(localStorage.getItem('bod_quit_slips')||'[]')}catch{return[]}}
 
