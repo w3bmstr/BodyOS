@@ -1138,6 +1138,126 @@
   .settings-label { font-size: 13px; font-weight: 600; color: var(--tx); }
   .settings-input { padding: 6px 8px; border: 1px solid var(--bd); border-radius: 5px; background: var(--bg); color: var(--tx); font-size: 12px; font-family: inherit; }
   .settings-close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 20px; color: var(--tx3); cursor: pointer; }
+
+  /* === Upgrades: BodyOS v2.1 === */
+
+  .coach-card {
+    background: linear-gradient(135deg, rgba(201,150,58,0.12), rgba(59,126,246,0.08));
+    border: 1px solid rgba(201,150,58,0.35);
+    border-radius: var(--rl);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  #app.dk .coach-card {
+    background: linear-gradient(135deg, rgba(201,150,58,0.1), rgba(59,126,246,0.06));
+  }
+  .coach-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .coach-text { font-size: 13.5px; line-height: 1.55; color: var(--tx); font-weight: 500; }
+  .score-ring-wrap { display:flex; align-items:center; gap:14px; margin: 8px 0 4px; }
+  .score-ring {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: conic-gradient(var(--green) calc(var(--pct,0)*1%), var(--bd) 0);
+    display:flex; align-items:center; justify-content:center;
+    position: relative;
+  }
+  .score-ring::after {
+    content:''; position:absolute; inset:6px; border-radius:50%; background:var(--sf);
+  }
+  .score-num {
+    position:relative; z-index:1; font-size:16px; font-weight:800; color:var(--tx);
+    font-variant-numeric: tabular-nums;
+  }
+  .challenge-item {
+    display:flex; align-items:flex-start; gap:10px; padding:10px 0;
+    border-bottom:1px solid var(--bd); cursor:pointer;
+  }
+  .challenge-item:last-child { border-bottom:none; }
+  .challenge-check {
+    width:22px; height:22px; border-radius:6px; border:1.5px solid var(--bd);
+    flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    margin-top:1px; transition:all .2s;
+  }
+  .challenge-check.done { background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:800; font-size:12px; }
+  .challenge-title { font-size:13px; font-weight:600; color:var(--tx); }
+  .challenge-sub { font-size:11.5px; color:var(--tx3); margin-top:2px; }
+  .points-pill {
+    margin-left:auto; font-size:11px; font-weight:700; color:var(--gold);
+    background:rgba(201,150,58,0.15); padding:3px 8px; border-radius:99px; flex-shrink:0;
+  }
+
+
+  .measure-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .measure-grid label { font-size:11px; font-weight:600; color:var(--tx3); display:block; margin-bottom:4px; }
+  .macro-bars { margin-top:10px; }
+  .macro-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .macro-row .mlabel { width:56px; font-size:11px; font-weight:700; color:var(--tx3); }
+  .macro-track { flex:1; height:8px; background:var(--bd); border-radius:99px; overflow:hidden; }
+  .macro-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--green),var(--teal)); }
+  .macro-val { width:70px; text-align:right; font-size:11px; font-weight:600; color:var(--tx); font-variant-numeric:tabular-nums; }
+  .set-row { display:flex; gap:8px; align-items:center; margin:6px 0; flex-wrap:wrap; }
+  .set-row input { width:64px; }
+  .week-score { font-size:28px; font-weight:700; letter-spacing:-1px; }
+  .plan-meal { padding:10px 0; border-bottom:1px solid var(--bd); }
+  .plan-meal:last-child { border-bottom:none; }
+  .plan-time { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--tx3); }
+  .plan-title { font-size:13.5px; font-weight:600; color:var(--tx); margin-top:2px; }
+  .plan-sub { font-size:12px; color:var(--tx3); margin-top:2px; line-height:1.45; }
+
+  .mood-row { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  .mood-btn {
+    flex:1; min-width:56px; padding:10px 6px; border-radius:var(--r);
+    border:1.5px solid var(--bd); background:var(--bg); cursor:pointer;
+    text-align:center; font-size:11px; font-weight:600; color:var(--tx3);
+    transition:all .14s ease;
+  }
+  .mood-btn:hover { border-color:var(--gold); color:var(--tx); }
+  .mood-btn.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  #app.dk .mood-btn.on { background:var(--gold); color:var(--ink); border-color:var(--gold); }
+  .mood-emoji { font-size:20px; display:block; margin-bottom:4px; line-height:1; }
+  .quick-log {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px; margin:12px 0;
+  }
+  .quick-log-btn {
+    padding:12px 10px; border-radius:var(--r); border:1.5px solid var(--bd);
+    background:var(--sf); cursor:pointer; text-align:left; transition:all .14s;
+  }
+  .quick-log-btn:hover { border-color:var(--gold); box-shadow:var(--shadow); }
+  .quick-log-btn .ql-title { font-size:12.5px; font-weight:600; color:var(--tx); }
+  .quick-log-btn .ql-sub { font-size:10.5px; color:var(--tx3); margin-top:2px; }
+  .meal-chip {
+    display:inline-flex; align-items:center; gap:6px; padding:6px 10px;
+    border-radius:99px; background:var(--green-lt); color:var(--green-dk);
+    font-size:11.5px; font-weight:600; margin:4px 4px 0 0;
+  }
+  #app.dk .meal-chip { background:rgba(46,184,122,.12); color:var(--green); }
+  .metric-input-row {
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:10px 0;
+  }
+  .metric-input-row input { width:100px; }
+  .trend-spark {
+    display:flex; align-items:flex-end; gap:3px; height:36px; margin-top:8px;
+  }
+  .trend-bar {
+    flex:1; background:var(--blue); border-radius:2px 2px 0 0; min-height:4px;
+    opacity:.7; transition:height .3s ease;
+  }
+  .workout-log-item {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-bottom:1px solid var(--bd);
+  }
+  .workout-log-item:last-child { border-bottom:none; }
+  .sleep-score {
+    display:flex; gap:6px; margin:8px 0;
+  }
+  .sleep-score button {
+    flex:1; padding:8px; border-radius:8px; border:1.5px solid var(--bd);
+    background:var(--bg); cursor:pointer; font-size:12px; font-weight:600; color:var(--tx3);
+  }
+  .sleep-score button.on { background:var(--purple); color:#fff; border-color:var(--purple); }
+
 </style>
 </head>
 <body>
@@ -1146,7 +1266,7 @@
 <aside id="sb">
   <div class="logo">
     <div class="logo-mark">B</div>
-    <div><div class="logo-text">BodyOS</div><div class="logo-sub">Protocol v2</div></div>
+    <div><div class="logo-text">BodyOS</div><div class="logo-sub">Protocol v2.1</div></div>
   </div>
 
   <div class="nav-section"><div class="nav-label">Daily</div><ul class="nav-list">
@@ -1212,6 +1332,68 @@
       </div>
     </div>
     <div id="today-insights"></div>
+
+    <div class="card" id="daily-checkin-card" style="margin-bottom:12px">
+      <div class="card-title" style="margin-bottom:8px">Daily check-in</div>
+      <div style="font-size:11px;color:var(--tx3);margin-bottom:6px">Energy</div>
+      <div class="mood-row" id="energy-row">
+        <button class="mood-btn" data-v="1" onclick="setCheckin('energy',1)"><span class="mood-emoji">😩</span>Low</button>
+        <button class="mood-btn" data-v="2" onclick="setCheckin('energy',2)"><span class="mood-emoji">😐</span>OK</button>
+        <button class="mood-btn" data-v="3" onclick="setCheckin('energy',3)"><span class="mood-emoji">🙂</span>Good</button>
+        <button class="mood-btn" data-v="4" onclick="setCheckin('energy',4)"><span class="mood-emoji">⚡</span>High</button>
+      </div>
+      <div style="font-size:11px;color:var(--tx3);margin:10px 0 6px">Mood</div>
+      <div class="mood-row" id="mood-row">
+        <button class="mood-btn" data-v="1" onclick="setCheckin('mood',1)"><span class="mood-emoji">😔</span>Low</button>
+        <button class="mood-btn" data-v="2" onclick="setCheckin('mood',2)"><span class="mood-emoji">😐</span>OK</button>
+        <button class="mood-btn" data-v="3" onclick="setCheckin('mood',3)"><span class="mood-emoji">😊</span>Good</button>
+        <button class="mood-btn" data-v="4" onclick="setCheckin('mood',4)"><span class="mood-emoji">🔥</span>Great</button>
+      </div>
+      <div style="font-size:11px;color:var(--tx3);margin:10px 0 6px">Sleep last night</div>
+      <div class="sleep-score" id="sleep-row">
+        <button data-v="1" onclick="setCheckin('sleep',1)">Poor</button>
+        <button data-v="2" onclick="setCheckin('sleep',2)">Fair</button>
+        <button data-v="3" onclick="setCheckin('sleep',3)">Good</button>
+        <button data-v="4" onclick="setCheckin('sleep',4)">Great</button>
+      </div>
+      <div class="metric-input-row" style="margin-top:12px">
+        <label style="font-size:12px;font-weight:600;color:var(--tx)">Weight</label>
+        <input type="number" id="weight-input" step="0.1" min="1" max="700" placeholder="—" style="width:90px">
+        <select id="weight-unit" class="fmt-sel" onchange="onWeightUnitChange()" style="padding:6px 8px;font-size:12px">
+          <option value="kg">kg</option>
+          <option value="lbs">lbs</option>
+        </select>
+        <button class="btn btn-gold btn-sm" onclick="logWeight()">Log</button>
+        <span id="weight-last" style="font-size:11px;color:var(--tx3)"></span>
+      </div>
+    </div>
+
+
+    <div class="coach-card" id="coach-card">
+      <div class="coach-label">Protocol coach</div>
+      <div class="coach-text" id="coach-message">Loading your daily insight…</div>
+    </div>
+    <div class="card" id="health-score-card">
+      <div class="card-row">
+        <div>
+          <div class="card-title">Protocol Health Score</div>
+          <div class="card-body">Based on habits, check-in, meals & fasting — not a generic calorie score.</div>
+        </div>
+      </div>
+      <div class="score-ring-wrap">
+        <div class="score-ring" id="score-ring" style="--pct:0"><span class="score-num" id="score-num">0</span></div>
+        <div style="flex:1;font-size:12px;color:var(--tx3);line-height:1.5" id="score-breakdown">Complete habits and check-in to build your score.</div>
+      </div>
+    </div>
+    <div class="card" id="challenges-card">
+      <div class="card-row" style="margin-bottom:4px">
+        <div class="card-title">Today's challenges</div>
+        <span class="points-pill" id="points-display">0 pts</span>
+      </div>
+      <div class="card-body" style="margin-bottom:6px">Earn protocol points — no ads, no sweepstakes, just adherence.</div>
+      <div id="challenges-list"></div>
+    </div>
+
     <div class="card">
       <div id="checklist"></div>
       <button class="btn btn-ghost btn-sm" onclick="resetDay()" style="margin-top:10px">Reset checklist</button>
@@ -1248,9 +1430,9 @@
     <div class="section-label">What's happening hour by hour</div>
     <div class="card"><div class="tl">
       <div class="tl-item"><div class="tl-dot" style="background:var(--mist);border-color:var(--mist)"></div><div class="tl-time">0–12 hours</div><div class="tl-title">Digestion → glycogen depletion</div><div class="tl-desc">mTOR active, autophagy fully suppressed. Insulin falls progressively after hour 4. Body in storage and build mode.</div></div>
-      <div class="tl-item"><div class="tl-dot" style="background:var(--amber);border-color:var(--amber)"></div><div class="tl-time">12–16 hours</div><div class="tl-title">Ketosis begins — AMPK rises</div><div class="tl-desc">AMPK (cellular energy sensor) activates and begins switching on autophagy gene expression. DNA repair enzymes start mobilising.</div></div>
-      <div class="tl-item"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">16–18 hours</div><div class="tl-title">Autophagy reaches meaningful threshold</div><div class="tl-desc">Beclin-1 and ULK1 fully activated. Cells begin digesting damaged proteins, dysfunctional mitochondria, and misfolded components. This is your daily target.</div></div>
-      <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">18–24 hours</div><div class="tl-title">Peak autophagy + immune cell renewal</div><div class="tl-desc">Maximum cellular cleanup running. DNA repair activity at highest. Immune cells undergo pruning and renewal. Consider breaking fast before 24h unless supervised.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--amber);border-color:var(--amber)"></div><div class="tl-time">12–16 hours</div><div class="tl-title">Ketosis begins — AMPK rises</div><div class="tl-desc">AMPK (cellular energy sensor) activates, phosphorylates ULK1, and begins switching on autophagy gene expression. Glycogen is largely depleted; ketones rise. DNA repair enzymes start mobilising.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">16–18 hours</div><div class="tl-title">Autophagy reaches meaningful threshold</div><div class="tl-desc">ULK1 complex and Beclin-1/VPS34 fully engaged. Phagophores form, LC3-II lipidation rises, and cells begin sequestering damaged proteins, dysfunctional mitochondria and aggregates. This is the daily target window.</div></div>
+      <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">18–24 hours</div><div class="tl-title">Peak autophagy + immune cell renewal</div><div class="tl-desc">Peak macroautophagy flux and lysosomal recycling. TFEB-driven gene programs active. Immune cell pruning and renewal underway. Most people break the fast before or around 24 h unless under clinical supervision.</div></div>
     </div></div>
     <div class="box warn"><b>What breaks autophagy:</b> Any calories. Black coffee, plain water, unsweetened ginger tea = fine. Food, juice, or milk → mTOR reactivates within 30 minutes.</div>
   </section>
@@ -1258,6 +1440,51 @@
   <!-- EXERCISE -->
   <section class="page" id="page-exercise">
     <div class="ph"><div><div class="ph-title">Exercise</div><div class="ph-sub">Movement as medicine — the AMPK pathway</div></div></div>
+
+    
+    <div class="card" id="sets-log-card" style="margin-bottom:14px">
+      <div class="card-title" style="margin-bottom:8px">Log sets · 10×10 protocol</div>
+      <div class="card-body" style="margin-bottom:10px">Track pushups, squats, rows like a client app — sets, reps, notes. Data stays on this device.</div>
+      <div style="font-size:12px;font-weight:600;color:var(--tx);margin-bottom:4px">Pushups</div>
+      <div class="set-row">
+        <input type="number" id="pu-sets" placeholder="Sets" min="1" max="30">
+        <input type="number" id="pu-reps" placeholder="Reps" min="1" max="100">
+        <input type="text" id="pu-note" placeholder="Note" style="flex:1;min-width:80px">
+        <button class="btn btn-ghost btn-sm" onclick="logSets('pushups')">Save</button>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--tx);margin:10px 0 4px">Squats</div>
+      <div class="set-row">
+        <input type="number" id="sq-sets" placeholder="Sets" min="1" max="30">
+        <input type="number" id="sq-reps" placeholder="Reps" min="1" max="100">
+        <input type="text" id="sq-note" placeholder="Note" style="flex:1;min-width:80px">
+        <button class="btn btn-ghost btn-sm" onclick="logSets('squats')">Save</button>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--tx);margin:10px 0 4px">Rows</div>
+      <div class="set-row">
+        <input type="number" id="rw-sets" placeholder="Sets" min="1" max="30">
+        <input type="number" id="rw-reps" placeholder="Reps" min="1" max="100">
+        <input type="text" id="rw-note" placeholder="Note" style="flex:1;min-width:80px">
+        <button class="btn btn-ghost btn-sm" onclick="logSets('rows')">Save</button>
+      </div>
+      <div id="sets-history" style="margin-top:12px"></div>
+    </div>
+
+    <div class="card" id="workout-log-card" style="margin-bottom:14px">
+      <div class="card-title" style="margin-bottom:8px">Log workout</div>
+      <div class="quick-log">
+        <button class="quick-log-btn" onclick="logWorkout('Fasted walk',20)"><div class="ql-title">Fasted walk</div><div class="ql-sub">20+ min</div></button>
+        <button class="quick-log-btn" onclick="logWorkout('10×10 pushups',10)"><div class="ql-title">Pushups</div><div class="ql-sub">10×10</div></button>
+        <button class="quick-log-btn" onclick="logWorkout('Squats + rows',10)"><div class="ql-title">Squats + rows</div><div class="ql-sub">Bodyweight</div></button>
+        <button class="quick-log-btn" onclick="logWorkout('Post-meal walk',15)"><div class="ql-title">Post-meal walk</div><div class="ql-sub">10–15 min</div></button>
+      </div>
+      <div class="metric-input-row">
+        <input type="text" id="custom-workout" placeholder="Custom workout" style="flex:1;min-width:120px">
+        <input type="number" id="workout-mins" placeholder="min" min="1" max="300" style="width:70px">
+        <button class="btn btn-gold btn-sm" onclick="logCustomWorkout()">Log</button>
+      </div>
+      <div id="workouts-today" style="margin-top:8px"></div>
+    </div>
+
     <div class="stats">
       <div class="stat"><div class="stat-label">Min cardio</div><div class="stat-val cv-b">20m</div><div class="stat-meta">Per session</div></div>
       <div class="stat"><div class="stat-label">Frequency</div><div class="stat-val cv-g">3–5×</div><div class="stat-meta">Per week</div></div>
@@ -1291,7 +1518,46 @@
   <!-- FOOD -->
   <section class="page" id="page-food">
     <div class="ph"><div><div class="ph-title">Food Protocol</div><div class="ph-sub">What to eat — and what to remove</div></div></div>
-    <div class="section-label">Eat daily</div>
+
+    
+    <div class="card" id="protocol-meal-plan">
+      <div class="card-title">Today's protocol meal plan</div>
+      <div class="card-body" style="margin-bottom:8px">Built from the protocol — not a calorie database. Log what you actually eat below.</div>
+      <div class="plan-meal"><div class="plan-time">Break fast (~12:00)</div><div class="plan-title">Protein + vegetables + garlic</div><div class="plan-sub">Eggs, fish, or meat · cruciferous veg · 2 crushed garlic cloves · ginger/turmeric + black pepper</div></div>
+      <div class="plan-meal"><div class="plan-time">Second meal (~15:00)</div><div class="plan-title">Fatty fish + fermented + magnesium</div><div class="plan-sub">Salmon/sardines 3×/week · sauerkraut/kefir/yogurt · 300–400mg magnesium glycinate</div></div>
+      <div class="plan-meal"><div class="plan-time">Optional</div><div class="plan-title">Close window by 20:00</div><div class="plan-sub">No calories after. Ginger or green tea only. Protect the next autophagy window.</div></div>
+      <div style="margin-top:12px">
+        <div class="card-title" style="font-size:12px;margin-bottom:6px">Macro targets (optional)</div>
+        <div class="metric-input-row">
+          <input type="number" id="target-protein" placeholder="Protein g" min="0" max="400" style="width:90px" onchange="saveMacroTargets()">
+          <input type="number" id="target-calories" placeholder="Calories" min="0" max="6000" style="width:90px" onchange="saveMacroTargets()">
+          <span style="font-size:11px;color:var(--tx3)">Saved to profile</span>
+        </div>
+        <div class="macro-bars" id="macro-progress"></div>
+      </div>
+    </div>
+
+    <div class="card" id="meal-log-card">
+      <div class="card-row" style="margin-bottom:10px">
+        <div><div class="card-title">Today's meals</div><div class="card-body">Quick-log protocol foods or free-text</div></div>
+        <button class="btn btn-ghost btn-sm" onclick="clearMealsToday()">Clear</button>
+      </div>
+      <div class="quick-log" id="quick-foods">
+        <button class="quick-log-btn" onclick="logMeal('Break fast — protein + veg')"><div class="ql-title">Break fast</div><div class="ql-sub">Protein + veg + garlic</div></button>
+        <button class="quick-log-btn" onclick="logMeal('Second meal — fish + fermented')"><div class="ql-title">Second meal</div><div class="ql-sub">Fish / fermented</div></button>
+        <button class="quick-log-btn" onclick="logMeal('Cruciferous veg')"><div class="ql-title">Cruciferous</div><div class="ql-sub">Broccoli / cabbage</div></button>
+        <button class="quick-log-btn" onclick="logMeal('Fermented food')"><div class="ql-title">Fermented</div><div class="ql-sub">Kefir / sauerkraut</div></button>
+        <button class="quick-log-btn" onclick="logMeal('Ginger + turmeric + pepper')"><div class="ql-title">Ginger/turmeric</div><div class="ql-sub">Daily stack</div></button>
+        <button class="quick-log-btn" onclick="logMeal('Garlic (raw)')"><div class="ql-title">Garlic</div><div class="ql-sub">2–4 cloves</div></button>
+      </div>
+      <div class="metric-input-row">
+        <input type="text" id="custom-meal" placeholder="Or type a meal / snack…" style="flex:1;min-width:140px">
+        <button class="btn btn-gold btn-sm" onclick="logCustomMeal()">Add</button>
+      </div>
+      <div id="meals-today" style="margin-top:10px"></div>
+    </div>
+    <div class="section-label">Protocol foods</div>
+
     <div class="grid2">
       <div class="card"><div class="card-row"><div><div class="card-title">Ginger + turmeric + black pepper</div><div class="card-body">Both activate autophagy via Beclin-1 at food doses. Black pepper increases curcumin absorption by 2,000% — use all three together every day.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
       <div class="card"><div class="card-row"><div><div class="card-title">Garlic — 2–4 raw cloves</div><div class="card-body">Allicin activates NK cells. Crush and wait 10 min before eating — the crushing activates the alliinase enzyme. Can cook lightly after waiting.</div></div><span class="badge bdg-g" style="margin-left:8px">Daily</span></div></div>
@@ -1448,7 +1714,51 @@
     </div>
     <div class="section-label">52-week heatmap</div>
     <div class="card" style="overflow-x:auto;padding:16px">
-      <div id="calendar-heatmap" style="display:grid;grid-template-columns:repeat(53,1fr);gap:3px;font-size:10px"></div>
+      
+    
+    <div class="section-label">Body measurements</div>
+    <div class="card">
+      <div class="card-body" style="margin-bottom:8px">Track circumference progress (same unit each time). Stored locally only.</div>
+      <div class="measure-grid">
+        <div><label>Waist</label><input type="number" id="m-waist" step="0.1" min="0" placeholder="cm or in" class="settings-input" style="width:100%"></div>
+        <div><label>Hips</label><input type="number" id="m-hips" step="0.1" min="0" placeholder="cm or in" class="settings-input" style="width:100%"></div>
+        <div><label>Chest</label><input type="number" id="m-chest" step="0.1" min="0" placeholder="cm or in" class="settings-input" style="width:100%"></div>
+        <div><label>Unit note</label><input type="text" id="m-unit" placeholder="cm or inches" class="settings-input" style="width:100%"></div>
+      </div>
+      <button class="btn btn-gold btn-sm" style="margin-top:10px" onclick="logMeasurements()">Save measurements</button>
+      <div id="measure-history" style="margin-top:12px;font-size:12px;color:var(--tx3)"></div>
+    </div>
+
+    <div class="section-label">Weekly check-in</div>
+    <div class="card">
+      <div class="card-body" style="margin-bottom:8px">Coach-yourself review — the feature that makes PT apps sticky, without needing a trainer.</div>
+      <div style="font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:4px">Adherence this week (1–10)</div>
+      <input type="range" id="wc-adhere" min="1" max="10" value="7" style="width:100%" oninput="document.getElementById('wc-adhere-val').textContent=this.value">
+      <div style="text-align:center;font-weight:700;margin:4px 0 10px"><span id="wc-adhere-val">7</span>/10</div>
+      <div style="font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:4px">What went well</div>
+      <textarea id="wc-wins" rows="2" placeholder="Wins, energy, consistency…" style="width:100%;margin-bottom:8px"></textarea>
+      <div style="font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:4px">Blockers / next focus</div>
+      <textarea id="wc-blockers" rows="2" placeholder="Sleep, stress, schedule friction…" style="width:100%;margin-bottom:8px"></textarea>
+      <button class="btn btn-gold btn-sm" onclick="saveWeeklyCheckin()">Save weekly check-in</button>
+      <div id="weekly-checkin-list" style="margin-top:12px"></div>
+    </div>
+
+    <div class="section-label">This week's self-coach report</div>
+    <div class="card" id="weekly-report"></div>
+
+    <div class="section-label">Body metrics</div>
+    <div class="card">
+      <div class="card-title">Weight trend</div>
+      <div id="weight-trend" class="trend-spark"></div>
+      <div id="weight-stats" style="font-size:12px;color:var(--tx3);margin-top:8px"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Check-in averages (last 14 days)</div>
+      <div id="checkin-avgs" style="margin-top:8px"></div>
+    </div>
+
+    <div class="section-label">Habit heatmap</div>
+    <div id="calendar-heatmap" style="display:grid;grid-template-columns:repeat(53,1fr);gap:3px;font-size:10px"></div>
     </div>
     <div style="display:flex;gap:8px;align-items:center;margin-top:12px;font-size:11px;color:var(--tx3)">
       <span>Less</span>
@@ -1517,6 +1827,45 @@
       <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:var(--red);border-color:var(--red)"></div><div class="tl-time">The kill switch</div><div class="tl-title">Apoptosis — programmed cell death</div><div class="tl-desc">Triggered by DNA damage beyond repair, targeted therapy, and T-cell attack. Cancer cells disable their apoptosis pathways — overexpressing Bcl-2 and underexpressing p53 — which is why established tumor colonies cannot be cleared by the natural compounds and food interventions that work at the individual cell level.</div></div>
     </div></div>
     <div class="box warn"><b>Prevention vs treatment:</b> Food, fasting, and supplements work at the level of individual cells — preventing damage and clearing pre-cancerous changes before they consolidate. They cannot clear established tumor colonies, which have already rewritten their own rules. That distinction is load-bearing.</div>
+    
+    <div class="section-label">Autophagy mechanisms — deep dive</div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:10px">What autophagy actually is</div>
+      <div class="card-body" style="margin-bottom:12px">
+        Autophagy (“self-eating”) is the cell’s recycling and quality-control system. It sequesters damaged proteins, dysfunctional organelles (especially mitochondria), and protein aggregates into double-membrane vesicles (autophagosomes), then fuses them with lysosomes for degradation. The resulting amino acids, fatty acids and nucleotides are returned to the cytosol for reuse. It operates at the level of individual cells.
+      </div>
+      <div class="card-title" style="margin-bottom:8px">Three main forms</div>
+      <div style="font-size:12.5px;line-height:1.7;color:var(--tx2);margin-bottom:14px">
+        <b>Macroautophagy</b> — bulk or selective engulfment by autophagosomes (the pathway most responsive to fasting and AMPK).<br>
+        <b>Microautophagy</b> — direct invagination of the lysosomal membrane.<br>
+        <b>Chaperone-mediated autophagy (CMA)</b> — one-by-one delivery of proteins carrying a KFERQ-like motif via HSC70 and LAMP2A.
+      </div>
+      <div class="card-title" style="margin-bottom:8px">Core sequence (macroautophagy)</div>
+      <div class="tl" style="margin-top:8px">
+        <div class="tl-item"><div class="tl-dot" style="background:var(--blue);border-color:var(--blue)"></div><div class="tl-time">1. Initiation</div><div class="tl-title">ULK1 complex</div><div class="tl-desc">Nutrient/energy stress inhibits mTORC1 and activates AMPK. AMPK phosphorylates ULK1 (activating); mTORC1 normally keeps ULK1 inhibited. When mTOR drops, the ULK1–ATG13–FIP200–ATG101 complex translocates to the ER/omegasome and starts phagophore formation.</div></div>
+        <div class="tl-item"><div class="tl-dot" style="background:var(--teal);border-color:var(--teal)"></div><div class="tl-time">2. Nucleation</div><div class="tl-title">Beclin-1 / VPS34 complex</div><div class="tl-desc">Class III PI3K (VPS34) with Beclin-1 generates PI3P on the isolation membrane. This recruits downstream effectors and expands the phagophore.</div></div>
+        <div class="tl-item"><div class="tl-dot" style="background:var(--green);border-color:var(--green)"></div><div class="tl-time">3. Elongation</div><div class="tl-title">ATG conjugation systems + LC3-II</div><div class="tl-desc">Two ubiquitin-like systems (ATG12–ATG5–ATG16L1 and LC3 lipidation) expand the membrane. LC3-I is converted to membrane-bound LC3-II. Cargo adapters (p62/SQSTM1, NBR1, OPTN…) link specific damaged material to the growing autophagosome.</div></div>
+        <div class="tl-item"><div class="tl-dot" style="background:var(--amber);border-color:var(--amber)"></div><div class="tl-time">4. Fusion</div><div class="tl-title">Autolysosome formation</div><div class="tl-desc">Completed autophagosome fuses with a lysosome (SNAREs, Rab7 and related machinery). Hydrolases then digest the contents.</div></div>
+        <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:var(--purple);border-color:var(--purple)"></div><div class="tl-time">5. Recycling</div><div class="tl-title">Building blocks returned</div><div class="tl-desc">Amino acids, fatty acids, sugars and nucleotides are released back into the cytosol. Transcription factor TFEB simultaneously up-regulates lysosomal and autophagy genes when nutrients are low.</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px">Decision logic the protocol uses</div>
+      <div class="box good" style="margin:0">
+        <b>Nutrients high + energy high</b> → mTORC1 ON → ULK1 inhibited → autophagy low<br>
+        <b>Nutrients low + energy low</b> → AMPK ON, mTORC1 OFF → ULK1 active → autophagy high
+      </div>
+      <div class="card-body" style="margin-top:12px">
+        The 16 h fast is timed to cross the point where AMPK rises and mTOR falls enough for Beclin-1/ULK1 activity to become meaningful. The fasted morning walk adds a second AMPK pulse while the cell is already nutrient-restricted. Food (especially amino acids and insulin) rapidly reactivates mTOR and suppresses the pathway — which is why the eating window is deliberate.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px">Boundaries (important)</div>
+      <div class="card-body">
+        Autophagy clears damaged or excess material <b>inside individual cells</b>. It does not clear established multicellular structures that have already disabled surveillance and apoptosis pathways. The system is homeostatic — both too little and uncontrolled excess can be harmful. Human evidence linking intermittent fasting or exercise to systemic outcomes is still developing; the molecular pathway itself is extensively mapped in cell and animal models.
+      </div>
+    </div>
+
     <div class="section-label">The compounding stack</div>
     <div class="card">
       <div style="font-size:13px;line-height:2;color:var(--tx2)">
@@ -1613,6 +1962,13 @@
       <input type="number" id="setting-fasting-hours" class="settings-input" value="16" min="12" max="24" onchange="saveProfileFromSettings()">
     </div>
     <div class="settings-row">
+      <div><div class="settings-label">Weight unit</div></div>
+      <select id="setting-weight-unit" class="settings-input" onchange="saveProfileFromSettings()">
+        <option value="kg">kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+    <div class="settings-row">
       <div><div class="settings-label">Install app</div></div>
       <button id="install-app-btn" class="btn btn-ghost btn-sm" onclick="installApp()">Install</button>
     </div>
@@ -1624,6 +1980,21 @@
       <div><div class="settings-label">Reminder time</div></div>
       <input type="time" id="setting-reminder-time" class="settings-input" onchange="saveAppSettingsFromSettings()">
     </div>
+    
+    <div class="settings-row" style="display:block;padding:14px 0;border-bottom:1px solid var(--bd)">
+      <div class="settings-label" style="margin-bottom:6px">Device & data integrations</div>
+      <div style="font-size:12px;color:var(--tx3);line-height:1.55;margin-bottom:10px">
+        BodyOS is a self-contained protocol app. It deliberately does <b>not</b> connect to Oura, WHOOP, Apple Health, Garmin or similar services yet.
+      </div>
+      <div style="font-size:12px;color:var(--tx2);line-height:1.6">
+        <b>Why not (for now)</b><br>
+        • Wearable APIs (HealthKit, Health Connect, Oura/WHOOP OAuth) require platform-specific native code or a backend — this build is a pure web PWA that stays fully offline and private (all data in your browser).<br>
+        • Full calorie / barcode / AI photo databases need large external services and change the product from a focused protocol tool into a general tracker.<br>
+        • Social or coaching feeds add accounts, moderation and attention costs that conflict with the quiet daily-protocol design.<br><br>
+        You can still log weight, energy, mood, sleep quality, meals and workouts manually — those feed the Stats trends. A future native or Capacitor build can add optional HealthKit / Health Connect sync without changing the core protocol.
+      </div>
+    </div>
+
     <div class="settings-row" style="display:block;padding:14px 0">
       <div class="settings-label" style="margin-bottom:8px">Backup & restore</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
@@ -1724,7 +2095,7 @@ const SCHEDULE=[
 const MILESTONES=[[20/60,'20 min: blood pressure normalises'],[8,'8h: carbon monoxide half-life done'],[24,'24h: heart attack risk begins to drop'],[48,'48h: taste and smell returning'],[72,'72h: nicotine fully cleared — physical addiction over'],[168,'1 week: circulation improving'],[336,'2 weeks: lung cilia regrowing'],[720,'1 month: immune function measurably improving'],[2160,'3 months: NK cell activity normalising']];
 
 const TITLES={today:'Today',schedule:'Schedule',fasting:'Fasting',exercise:'Exercise',supplements:'Supplements',food:'Food',hydration:'Hydration',stress:'Stress',gut:'Gut Health',smoking:'Quit Smoking',stats:'Stats & Analytics',journal:'Journal',science:'The Science'};
-const DEFAULT_PROFILE={goal:'energy',wakeTime:'07:00',waterGoal:8,fastingHours:16};
+const DEFAULT_PROFILE={goal:'energy',wakeTime:'07:00',waterGoal:8,fastingHours:16,weightUnit:'kg'};
 
 function getProfile(){
   try{
@@ -2019,7 +2390,7 @@ function runBreath(){
 // WATER
 const WATER_ML_PER_GLASS = 250;
 let waterCount=0;
-function renderWater(){
+function renderWater(){ if(typeof refreshCoachLayer==='function' && document.getElementById('challenges-list')){ try{ syncChallengePoints(); }catch(e){} }
   const goal=getWaterGoal();
   waterCount=getW();
   const el=document.getElementById('water-dots');if(!el)return;
@@ -2033,6 +2404,7 @@ function addWater(){
   if(nextCount===waterCount)return;
   waterCount=nextCount;
   setW(waterCount);renderWater();
+  if(typeof refreshCoachLayer==='function') refreshCoachLayer();
   if(waterCount>=goal)toast('Daily water goal reached — lymph is flowing','ok');
   else toast('Water logged +'+WATER_ML_PER_GLASS+'ml','info');
 }
@@ -2360,12 +2732,14 @@ function navTo(page,el){
   document.getElementById('page-title').textContent=TITLES[page]||page;
   document.querySelector('.content').scrollTop=0;
   closeSb();
-  if(page==='today')renderChecklist();
+  if(page==='today'){renderChecklist();renderCheckinUI();if(typeof refreshCoachLayer==='function')refreshCoachLayer();}
   if(page==='hydration')renderWater();
   if(page==='schedule')renderSchedule();
   if(page==='journal')renderJournal();
   if(page==='smoking')renderSmokingPage();
-  if(page==='stats')renderStats();
+  if(page==='stats'){renderStats();renderMeasurements();renderWeeklyCheckins();renderWeeklyReport();}
+  if(page==='food'){renderMealsToday();applyMacroTargetsToUI();}
+  if(page==='exercise'){renderWorkoutsToday();renderSetsHistory();}
 }
 document.querySelectorAll('.nav-item[data-page]').forEach(li=>li.addEventListener('click',()=>navTo(li.dataset.page,li)));
 function toggleSb(){document.getElementById('app').classList.toggle('sbo')}
@@ -2378,10 +2752,63 @@ function toggleTheme(){
 }
 
 // STATS & ANALYTICS
+
+function renderWeightTrend(){
+  const el = document.getElementById('weight-trend');
+  const statsEl = document.getElementById('weight-stats');
+  if(!el) return;
+  const hist = getWeightHistory().slice(0,14).reverse();
+  if(!hist.length){ el.innerHTML=''; if(statsEl) statsEl.textContent='Log weight on Today to see trend.'; return; }
+  const unit = getWeightUnit();
+  const vals = hist.map(h=>h.kg);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const range = Math.max(max-min, 0.5);
+  el.innerHTML = vals.map(v=>{
+    const h = 8 + ((v-min)/range)*28;
+    const disp = kgToDisplay(v);
+    return `<div class="trend-bar" style="height:${h}px" title="${disp} ${unit}"></div>`;
+  }).join('');
+  if(statsEl){
+    const latestKg = hist[hist.length-1].kg;
+    const firstKg = hist[0].kg;
+    const latest = kgToDisplay(latestKg);
+    const deltaKg = latestKg - firstKg;
+    const delta = kgToDisplay(Math.abs(deltaKg));
+    const sign = deltaKg > 0 ? '+' : (deltaKg < 0 ? '−' : '');
+    statsEl.innerHTML = `Latest <b style="color:var(--tx)">${latest} ${unit}</b> · ${hist.length} entries · Δ ${sign}${delta} ${unit}`;
+  }
+}
+function renderCheckinAvgs(){
+  const el = document.getElementById('checkin-avgs');
+  if(!el) return;
+  let eSum=0,mSum=0,sSum=0,n=0;
+  for(let i=0;i<14;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const key='bod_checkin_'+d.toISOString().slice(0,10);
+    let c={};
+    try{c=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
+    if(c.energy||c.mood||c.sleep){
+      n++; eSum+=c.energy||0; mSum+=c.mood||0; sSum+=c.sleep||0;
+    }
+  }
+  if(!n){ el.innerHTML='<div style="font-size:12px;color:var(--tx3)">No check-ins yet. Use the Today page.</div>'; return; }
+  const avg = (x)=> (x/n).toFixed(1);
+  el.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+    <div class="stat" style="padding:10px"><div class="stat-label">Energy</div><div class="stat-val" style="font-size:18px">${avg(eSum)}</div><div class="stat-meta">/ 4</div></div>
+    <div class="stat" style="padding:10px"><div class="stat-label">Mood</div><div class="stat-val" style="font-size:18px">${avg(mSum)}</div><div class="stat-meta">/ 4</div></div>
+    <div class="stat" style="padding:10px"><div class="stat-label">Sleep</div><div class="stat-val" style="font-size:18px">${avg(sSum)}</div><div class="stat-meta">/ 4</div></div>
+  </div>`;
+}
+
 function renderStats(){
   renderCalendarHeatmap();
   renderMonthlyStats();
   renderStreakStats();
+  renderWeightTrend();
+  renderCheckinAvgs();
+  renderMeasurements();
+  renderWeeklyCheckins();
+  renderWeeklyReport();
 }
 function renderCalendarHeatmap(){
   const el=document.getElementById('calendar-heatmap');if(!el)return;
@@ -2482,25 +2909,35 @@ function applyProfileToSettings(){
   const wakeEl=document.getElementById('setting-wake-time');
   const waterEl=document.getElementById('setting-water-goal');
   const fastEl=document.getElementById('setting-fasting-hours');
+  const unitEl=document.getElementById('setting-weight-unit');
   if(goalEl)goalEl.value=p.goal || 'energy';
   if(wakeEl)wakeEl.value=p.wakeTime || '07:00';
   if(waterEl)waterEl.value=p.waterGoal || 8;
   if(fastEl)fastEl.value=p.fastingHours || 16;
+  if(unitEl)unitEl.value=p.weightUnit === 'lbs' ? 'lbs' : 'kg';
+  const wUnit=document.getElementById('weight-unit');
+  if(wUnit)wUnit.value=p.weightUnit === 'lbs' ? 'lbs' : 'kg';
 }
 function saveProfileFromSettings(){
   const goalEl=document.getElementById('setting-goal');
   const wakeEl=document.getElementById('setting-wake-time');
   const waterEl=document.getElementById('setting-water-goal');
   const fastEl=document.getElementById('setting-fasting-hours');
+  const unitEl=document.getElementById('setting-weight-unit');
   const p={...getProfile()};
   if(goalEl)p.goal=goalEl.value;
   if(wakeEl)p.wakeTime=wakeEl.value || '07:00';
   if(waterEl)p.waterGoal=Math.max(1, Number(waterEl.value) || 8);
   if(fastEl)p.fastingHours=Math.max(12, Math.min(24, Number(fastEl.value) || 16));
+  if(unitEl)p.weightUnit=unitEl.value === 'lbs' ? 'lbs' : 'kg';
   saveProfile(p);
+  const wUnit=document.getElementById('weight-unit');
+  if(wUnit)wUnit.value=p.weightUnit;
   saveAppSettingsFromSettings();
   renderTodayInsights();
   renderWater();
+  renderCheckinUI();
+  if(typeof renderStats==='function') renderStats();
   toast('Profile updated','ok');
 }
 function showOnboarding(){
@@ -2689,6 +3126,548 @@ function showKeyboardHelp(){
   toast(msg,'info');
 }
 
+
+// === BodyOS v2.1 upgrades: check-in, meals, workouts, weight ===
+function checkinKey(){ return 'bod_checkin_'+new Date().toISOString().slice(0,10); }
+function getCheckin(){ try{ return JSON.parse(localStorage.getItem(checkinKey())||'{}'); }catch{return{};} }
+function setCheckin(field, val){
+  const c = getCheckin();
+  c[field] = val;
+  try{ localStorage.setItem(checkinKey(), JSON.stringify(c)); }catch{}
+  renderCheckinUI();
+  if(typeof refreshCoachLayer==='function') refreshCoachLayer();
+  toast(field.charAt(0).toUpperCase()+field.slice(1)+' logged','ok');
+}
+function renderCheckinUI(){
+  const c = getCheckin();
+  ['energy','mood'].forEach(f=>{
+    const row = document.getElementById(f+'-row');
+    if(!row) return;
+    row.querySelectorAll('.mood-btn').forEach(b=>{
+      b.classList.toggle('on', Number(b.dataset.v)===c[f]);
+    });
+  });
+  const sleepRow = document.getElementById('sleep-row');
+  if(sleepRow){
+    sleepRow.querySelectorAll('button').forEach(b=>{
+      b.classList.toggle('on', Number(b.dataset.v)===c.sleep);
+    });
+  }
+  const lastW = getWeightHistory();
+  const el = document.getElementById('weight-last');
+  const unitSel = document.getElementById('weight-unit');
+  if(unitSel) unitSel.value = getWeightUnit();
+  if(el && lastW.length){
+    const latest = lastW[0];
+    el.textContent = formatWeight(latest.kg) + ' · ' + new Date(latest.date).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  }
+}
+
+function getWeightUnit(){
+  const p = getProfile();
+  return (p.weightUnit === 'lbs') ? 'lbs' : 'kg';
+}
+function setWeightUnit(unit){
+  const p = {...getProfile(), weightUnit: unit === 'lbs' ? 'lbs' : 'kg'};
+  saveProfile(p);
+}
+function onWeightUnitChange(){
+  const sel = document.getElementById('weight-unit');
+  if(sel) setWeightUnit(sel.value);
+  const sSel = document.getElementById('setting-weight-unit');
+  if(sSel) sSel.value = getWeightUnit();
+  renderCheckinUI();
+  if(typeof renderStats==='function') renderStats();
+}
+function kgToDisplay(kg){
+  const u = getWeightUnit();
+  if(u === 'lbs') return Math.round(kg * 2.20462 * 10) / 10;
+  return Math.round(kg * 10) / 10;
+}
+function displayToKg(val, unit){
+  const n = parseFloat(val);
+  if(!n || isNaN(n)) return null;
+  if(unit === 'lbs') return n / 2.20462;
+  return n;
+}
+function formatWeight(kg){
+  const u = getWeightUnit();
+  const v = kgToDisplay(kg);
+  return v + ' ' + u;
+}
+function getWeightHistory(){
+  try{ return JSON.parse(localStorage.getItem('bod_weights')||'[]'); }catch{return[];}
+}
+function logWeight(){
+  const inp = document.getElementById('weight-input');
+  const unitEl = document.getElementById('weight-unit');
+  const unit = (unitEl && unitEl.value) || getWeightUnit();
+  const raw = parseFloat(inp && inp.value);
+  if(!raw || isNaN(raw)){ toast('Enter a valid weight','warn'); return; }
+  // Validate by unit
+  if(unit === 'kg' && (raw < 25 || raw > 300)){ toast('Enter a valid weight (25–300 kg)','warn'); return; }
+  if(unit === 'lbs' && (raw < 55 || raw > 660)){ toast('Enter a valid weight (55–660 lbs)','warn'); return; }
+  const kg = displayToKg(raw, unit);
+  if(kg == null){ toast('Enter a valid weight','warn'); return; }
+  setWeightUnit(unit);
+  const hist = getWeightHistory();
+  hist.unshift({date:new Date().toISOString(), kg: Math.round(kg * 100) / 100, unit});
+  try{ localStorage.setItem('bod_weights', JSON.stringify(hist.slice(0,200))); }catch{}
+  if(inp) inp.value='';
+  renderCheckinUI();
+  toast('Weight logged: ' + formatWeight(kg), 'ok');
+  if(typeof renderStats==='function') renderStats();
+}
+
+function mealsKey(){ return 'bod_meals_'+new Date().toISOString().slice(0,10); }
+function getMeals(){ try{ return JSON.parse(localStorage.getItem(mealsKey())||'[]'); }catch{return[];} }
+function logMeal(name){
+  const m = getMeals();
+  m.push({name, time:new Date().toISOString()});
+  try{ localStorage.setItem(mealsKey(), JSON.stringify(m)); }catch{}
+  renderMealsToday();
+  if(typeof refreshCoachLayer==='function') refreshCoachLayer();
+  toast('Logged: '+name,'ok');
+  // auto-tick related habits
+  const s = getS();
+  if(name.toLowerCase().includes('ferment')) s.fermented = true;
+  if(name.toLowerCase().includes('cruciferous')||name.toLowerCase().includes('broccoli')) s.veg = true;
+  setS(s); renderChecklist(); updateProgress();
+}
+function logCustomMeal(){
+  const inp = document.getElementById('custom-meal');
+  const name = (inp && inp.value || '').trim();
+  if(!name) return;
+  logMeal(name);
+  if(inp) inp.value='';
+}
+function clearMealsToday(){
+  try{ localStorage.removeItem(mealsKey()); }catch{}
+  renderMealsToday();
+  toast('Meals cleared','warn');
+}
+function renderMealsToday(){
+  const el = document.getElementById('meals-today');
+  if(!el) return;
+  const m = getMeals();
+  if(!m.length){ el.innerHTML='<div style="font-size:12px;color:var(--tx3)">No meals logged yet today.</div>'; return; }
+  el.innerHTML = m.map((x,i)=>`<span class="meal-chip">${x.name} <button onclick="removeMeal(${i})" style="border:none;background:none;cursor:pointer;color:inherit;opacity:.7;font-size:12px">×</button></span>`).join('');
+}
+function removeMeal(i){
+  const m = getMeals(); m.splice(i,1);
+  try{ localStorage.setItem(mealsKey(), JSON.stringify(m)); }catch{}
+  renderMealsToday();
+}
+
+function workoutsKey(){ return 'bod_workouts_'+new Date().toISOString().slice(0,10); }
+function getWorkouts(){ try{ return JSON.parse(localStorage.getItem(workoutsKey())||'[]'); }catch{return[];} }
+function logWorkout(name, mins){
+  const w = getWorkouts();
+  w.push({name, mins:mins||0, time:new Date().toISOString()});
+  try{ localStorage.setItem(workoutsKey(), JSON.stringify(w)); }catch{}
+  renderWorkoutsToday();
+  toast('Workout logged','ok');
+  const s = getS();
+  if(name.toLowerCase().includes('walk')||name.toLowerCase().includes('push')||name.toLowerCase().includes('squat')) s.exercise = true;
+  if(name.toLowerCase().includes('fasted')) s.walk = true;
+  setS(s); renderChecklist(); updateProgress();
+}
+function logCustomWorkout(){
+  const name = (document.getElementById('custom-workout')||{}).value||'';
+  const mins = parseInt((document.getElementById('workout-mins')||{}).value)||0;
+  if(!name.trim()) return;
+  logWorkout(name.trim(), mins);
+  const n = document.getElementById('custom-workout'); if(n) n.value='';
+  const m = document.getElementById('workout-mins'); if(m) m.value='';
+}
+function renderWorkoutsToday(){
+  const el = document.getElementById('workouts-today');
+  if(!el) return;
+  const w = getWorkouts();
+  if(!w.length){ el.innerHTML='<div style="font-size:12px;color:var(--tx3)">No workouts logged yet.</div>'; return; }
+  const total = w.reduce((a,x)=>a+(x.mins||0),0);
+  el.innerHTML = w.map(x=>`<div class="workout-log-item"><div><div style="font-size:13px;font-weight:600;color:var(--tx)">${x.name}</div><div style="font-size:11px;color:var(--tx3)">${new Date(x.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div><span class="badge bdg-b">${x.mins||'?'} min</span></div>`).join('') +
+    `<div style="font-size:12px;font-weight:700;color:var(--tx);margin-top:8px">Total: ${total} min</div>`;
+}
+
+
+
+// === BodyOS competitive upgrades: measurements, weekly check-in, sets, macros ===
+function getMacroTargets(){
+  const p=getProfile();
+  return { protein: Number(p.proteinTarget)||0, calories: Number(p.calorieTarget)||0 };
+}
+function saveMacroTargets(){
+  const p={...getProfile()};
+  const pr=document.getElementById('target-protein');
+  const cal=document.getElementById('target-calories');
+  if(pr) p.proteinTarget = Math.max(0, Number(pr.value)||0);
+  if(cal) p.calorieTarget = Math.max(0, Number(cal.value)||0);
+  saveProfile(p);
+  renderMacroProgress();
+  toast('Macro targets saved','ok');
+}
+function applyMacroTargetsToUI(){
+  const t=getMacroTargets();
+  const pr=document.getElementById('target-protein');
+  const cal=document.getElementById('target-calories');
+  if(pr && document.activeElement!==pr) pr.value=t.protein||'';
+  if(cal && document.activeElement!==cal) cal.value=t.calories||'';
+  renderMacroProgress();
+}
+function renderMacroProgress(){
+  const el=document.getElementById('macro-progress');
+  if(!el) return;
+  const t=getMacroTargets();
+  const meals=getMeals();
+  // Protocol adherence proxy: count protocol-aligned logs
+  const tags=['ferment','cruciferous','garlic','ginger','protein','fish','break fast','second meal'];
+  const hits=meals.filter(m=>tags.some(t=> (m.name||'').toLowerCase().includes(t))).length;
+  const mealScore=Math.min(100, hits*25);
+  let html='';
+  if(t.protein||t.calories){
+    html+=`<div style="font-size:11px;color:var(--tx3);margin-bottom:6px">Targets are guides — log protocol meals for adherence. Full calorie DB is intentionally not included.</div>`;
+  }
+  html+=`<div class="macro-row"><span class="mlabel">Protocol</span><div class="macro-track"><div class="macro-fill" style="width:${mealScore}%"></div></div><span class="macro-val">${hits} logs</span></div>`;
+  if(t.protein) html+=`<div class="macro-row"><span class="mlabel">Protein</span><div class="macro-track"><div class="macro-fill" style="width:0%;opacity:.4"></div></div><span class="macro-val">goal ${t.protein}g</span></div>`;
+  if(t.calories) html+=`<div class="macro-row"><span class="mlabel">Energy</span><div class="macro-track"><div class="macro-fill" style="width:0%;opacity:.4"></div></div><span class="macro-val">goal ${t.calories}</span></div>`;
+  el.innerHTML=html;
+}
+
+function getMeasurements(){
+  try{return JSON.parse(localStorage.getItem('bod_measurements')||'[]');}catch{return[];}
+}
+function logMeasurements(){
+  const waist=parseFloat((document.getElementById('m-waist')||{}).value);
+  const hips=parseFloat((document.getElementById('m-hips')||{}).value);
+  const chest=parseFloat((document.getElementById('m-chest')||{}).value);
+  const unit=((document.getElementById('m-unit')||{}).value||'').trim()||'cm';
+  if(!waist && !hips && !chest){ toast('Enter at least one measurement','warn'); return; }
+  const entry={date:new Date().toISOString(), waist:waist||null, hips:hips||null, chest:chest||null, unit};
+  const list=getMeasurements();
+  list.unshift(entry);
+  try{localStorage.setItem('bod_measurements',JSON.stringify(list.slice(0,100)));}catch{}
+  ['m-waist','m-hips','m-chest'].forEach(id=>{const e=document.getElementById(id); if(e)e.value='';});
+  renderMeasurements();
+  toast('Measurements saved','ok');
+}
+function renderMeasurements(){
+  const el=document.getElementById('measure-history');
+  if(!el) return;
+  const list=getMeasurements().slice(0,5);
+  if(!list.length){ el.textContent='No measurements yet.'; return; }
+  el.innerHTML=list.map(m=>{
+    const d=new Date(m.date).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    const parts=[];
+    if(m.waist!=null) parts.push('Waist '+m.waist);
+    if(m.hips!=null) parts.push('Hips '+m.hips);
+    if(m.chest!=null) parts.push('Chest '+m.chest);
+    return `<div style="padding:6px 0;border-bottom:1px solid var(--bd)"><b style="color:var(--tx)">${d}</b> · ${parts.join(' · ')} <span style="color:var(--tx3)">(${m.unit||''})</span></div>`;
+  }).join('');
+}
+
+function getWeeklyCheckins(){
+  try{return JSON.parse(localStorage.getItem('bod_weekly_checkins')||'[]');}catch{return[];}
+}
+function saveWeeklyCheckin(){
+  const adhere=parseInt((document.getElementById('wc-adhere')||{}).value)||7;
+  const wins=((document.getElementById('wc-wins')||{}).value||'').trim();
+  const blockers=((document.getElementById('wc-blockers')||{}).value||'').trim();
+  const entry={date:new Date().toISOString(), adhere, wins, blockers};
+  const list=getWeeklyCheckins();
+  list.unshift(entry);
+  try{localStorage.setItem('bod_weekly_checkins',JSON.stringify(list.slice(0,52)));}catch{}
+  const w=document.getElementById('wc-wins'); if(w)w.value='';
+  const b=document.getElementById('wc-blockers'); if(b)b.value='';
+  renderWeeklyCheckins();
+  renderWeeklyReport();
+  toast('Weekly check-in saved','ok');
+}
+function renderWeeklyCheckins(){
+  const el=document.getElementById('weekly-checkin-list');
+  if(!el) return;
+  const list=getWeeklyCheckins().slice(0,4);
+  if(!list.length){ el.innerHTML='<div style="font-size:12px;color:var(--tx3);margin-top:8px">No weekly check-ins yet.</div>'; return; }
+  el.innerHTML=list.map(c=>{
+    const d=new Date(c.date).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--bd)">
+      <div style="display:flex;justify-content:space-between"><span style="font-weight:700;color:var(--tx)">${d}</span><span class="badge bdg-g">${c.adhere}/10</span></div>
+      ${c.wins?`<div style="font-size:12px;color:var(--tx2);margin-top:4px"><b>Wins:</b> ${c.wins}</div>`:''}
+      ${c.blockers?`<div style="font-size:12px;color:var(--tx3);margin-top:2px"><b>Focus:</b> ${c.blockers}</div>`:''}
+    </div>`;
+  }).join('');
+}
+function renderWeeklyReport(){
+  const el=document.getElementById('weekly-report');
+  if(!el) return;
+  const summary=getWeekSummary();
+  const workouts=[];
+  for(let i=0;i<7;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const key='bod_workouts_'+d.toISOString().slice(0,10);
+    try{ const w=JSON.parse(localStorage.getItem(key)||'[]'); workouts.push(...w); }catch{}
+  }
+  const mins=workouts.reduce((a,x)=>a+(x.mins||0),0);
+  const checkins=getWeeklyCheckins();
+  const lastWC=checkins[0];
+  const avg=summary.avg;
+  let grade='Building';
+  if(avg>=85) grade='Excellent';
+  else if(avg>=70) grade='Strong';
+  else if(avg>=50) grade='Solid';
+  else if(avg>=30) grade='Inconsistent';
+  el.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+      <div><div class="week-score" style="color:var(--tx)">${avg}%</div><div style="font-size:12px;color:var(--tx3)">7-day habit average</div></div>
+      <span class="badge ${avg>=70?'bdg-g':avg>=40?'bdg-a':'bdg-d'}">${grade}</span>
+    </div>
+    <div style="margin-top:14px;font-size:13px;line-height:1.7;color:var(--tx2)">
+      <b style="color:var(--tx)">${summary.strong}</b> strong days (≥80%) · Best day <b style="color:var(--tx)">${summary.best.pct}%</b> · Lowest <b style="color:var(--tx)">${summary.lowest.pct}%</b><br>
+      Workouts logged this week: <b style="color:var(--tx)">${workouts.length}</b> (${mins} min)<br>
+      ${lastWC?`Last self-check-in: <b style="color:var(--tx)">${lastWC.adhere}/10</b> on ${new Date(lastWC.date).toLocaleDateString()}`:'No weekly self-check-in yet — add one above.'}
+    </div>
+    <div class="box info" style="margin-top:12px;margin-bottom:0"><b>Next focus:</b> ${getNextFocus(getProfile().goal)}</div>
+  `;
+}
+
+function getSetsLog(){
+  try{return JSON.parse(localStorage.getItem('bod_sets')||'[]');}catch{return[];}
+}
+function logSets(move){
+  const map={pushups:['pu-sets','pu-reps','pu-note'],squats:['sq-sets','sq-reps','sq-note'],rows:['rw-sets','rw-reps','rw-note']};
+  const ids=map[move]; if(!ids) return;
+  const sets=parseInt((document.getElementById(ids[0])||{}).value)||0;
+  const reps=parseInt((document.getElementById(ids[1])||{}).value)||0;
+  const note=((document.getElementById(ids[2])||{}).value||'').trim();
+  if(!sets || !reps){ toast('Enter sets and reps','warn'); return; }
+  const list=getSetsLog();
+  list.unshift({date:new Date().toISOString(), move, sets, reps, note});
+  try{localStorage.setItem('bod_sets',JSON.stringify(list.slice(0,200)));}catch{}
+  ids.forEach(id=>{const e=document.getElementById(id); if(e)e.value='';});
+  // tick exercise habit
+  const s=getS(); s.exercise=true; setS(s); renderChecklist(); updateProgress();
+  renderSetsHistory();
+  toast(move+': '+sets+'×'+reps+' logged','ok');
+}
+function renderSetsHistory(){
+  const el=document.getElementById('sets-history');
+  if(!el) return;
+  const list=getSetsLog().slice(0,8);
+  if(!list.length){ el.innerHTML='<div style="font-size:12px;color:var(--tx3)">No sets logged yet.</div>'; return; }
+  el.innerHTML=list.map(x=>{
+    const d=new Date(x.date);
+    const ds=d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' · '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    return `<div class="workout-log-item"><div><div style="font-size:13px;font-weight:600;color:var(--tx);text-transform:capitalize">${x.move}</div><div style="font-size:11px;color:var(--tx3)">${ds}${x.note?' · '+x.note:''}</div></div><span class="badge bdg-b">${x.sets}×${x.reps}</span></div>`;
+  }).join('');
+}
+
+
+
+// === Beat Amino: Protocol Health Score, local coach, challenges, points ===
+const CHALLENGES = [
+  {id:'c_light', label:'Morning light 15+ min', sub:'Circadian + cortisol reset', pts:15, habit:'light'},
+  {id:'c_fast', label:'Hit 16h fast', sub:'Autophagy window', pts:25, habit:'fast'},
+  {id:'c_walk', label:'Fasted morning walk', sub:'Dual AMPK signal', pts:20, habit:'walk'},
+  {id:'c_water', label:'Hit water goal', sub:'Hydration target', pts:10, water:true},
+  {id:'c_meal', label:'Log 2+ protocol meals', sub:'Food page quick-log', pts:15, meals:2},
+  {id:'c_breath', label:'4–7–8 breathing session', sub:'Stress tab or habit', pts:10, habit:'breathing'},
+  {id:'c_checkin', label:'Daily energy/mood check-in', sub:'Today page', pts:10, checkin:true},
+];
+
+function pointsKey(){ return 'bod_points_'+new Date().toISOString().slice(0,10); }
+function getPoints(){ try{return parseInt(localStorage.getItem(pointsKey())||'0')}catch{return 0} }
+function setPoints(n){ try{localStorage.setItem(pointsKey(), String(n))}catch{} }
+function getTotalPoints(){ try{return parseInt(localStorage.getItem('bod_points_total')||'0')}catch{return 0} }
+function addTotalPoints(delta){
+  const t=getTotalPoints()+delta;
+  try{localStorage.setItem('bod_points_total', String(t))}catch{}
+  return t;
+}
+function challengesStateKey(){ return 'bod_chal_'+new Date().toISOString().slice(0,10); }
+function getChallengeState(){ try{return JSON.parse(localStorage.getItem(challengesStateKey())||'{}')}catch{return{}} }
+function setChallengeState(s){ try{localStorage.setItem(challengesStateKey(), JSON.stringify(s))}catch{} }
+
+function isChallengeDone(c, state){
+  if(state[c.id]) return true;
+  const s=getS();
+  if(c.habit && s[c.habit]) return true;
+  if(c.water){ return getW() >= getWaterGoal(); }
+  if(c.meals){ return getMeals().length >= c.meals; }
+  if(c.checkin){
+    const ch=getCheckin();
+    return !!(ch.energy || ch.mood || ch.sleep);
+  }
+  return false;
+}
+
+function syncChallengePoints(){
+  const state=getChallengeState();
+  let pts=0;
+  let changed=false;
+  CHALLENGES.forEach(c=>{
+    const done=isChallengeDone(c, state);
+    if(done && !state[c.id]){
+      state[c.id]=true;
+      pts+=c.pts;
+      changed=true;
+    } else if(done){
+      // already counted
+    }
+  });
+  // Recalculate day points from completed challenges (idempotent)
+  let dayPts=0;
+  CHALLENGES.forEach(c=>{ if(state[c.id]||isChallengeDone(c,state)){ if(!state[c.id]){state[c.id]=true;changed=true;} dayPts+=c.pts; }});
+  const prev=getPoints();
+  if(dayPts>prev){
+    addTotalPoints(dayPts-prev);
+    setPoints(dayPts);
+  } else if(dayPts!==prev){
+    setPoints(dayPts);
+  }
+  if(changed) setChallengeState(state);
+  return {state, dayPts};
+}
+
+function toggleChallenge(id){
+  const state=getChallengeState();
+  const c=CHALLENGES.find(x=>x.id===id);
+  if(!c) return;
+  // Only allow manual complete for challenges not auto-tied, or force mark
+  if(state[id]){
+    // don't uncomplete auto habits easily
+    return;
+  }
+  state[id]=true;
+  setChallengeState(state);
+  const prev=getPoints();
+  const next=prev+c.pts;
+  setPoints(next);
+  addTotalPoints(c.pts);
+  renderChallenges();
+  renderHealthScore();
+  toast('+'+c.pts+' protocol points','ok');
+}
+
+function renderChallenges(){
+  const el=document.getElementById('challenges-list');
+  const ptsEl=document.getElementById('points-display');
+  if(!el) return;
+  const {state, dayPts}=syncChallengePoints();
+  if(ptsEl) ptsEl.textContent=dayPts+' pts · lifetime '+getTotalPoints();
+  el.innerHTML=CHALLENGES.map(c=>{
+    const done=!!state[c.id] || isChallengeDone(c, state);
+    return `<div class="challenge-item" onclick="toggleChallenge('${c.id}')">
+      <div class="challenge-check${done?' done':''}">${done?'✓':''}</div>
+      <div style="flex:1;min-width:0">
+        <div class="challenge-title" style="${done?'text-decoration:line-through;color:var(--tx3)':''}">${c.label}</div>
+        <div class="challenge-sub">${c.sub}</div>
+      </div>
+      <span class="points-pill">+${c.pts}</span>
+    </div>`;
+  }).join('');
+}
+
+function computeHealthScore(){
+  const s=getS();
+  const habitsDone=HABITS.filter(h=>s[h.id]).length;
+  const habitScore=Math.round((habitsDone/HABITS.length)*45); // max 45
+  const ch=getCheckin();
+  let checkScore=0;
+  if(ch.energy) checkScore+=5;
+  if(ch.mood) checkScore+=5;
+  if(ch.sleep) checkScore+=5;
+  // energy/mood quality bonus
+  if(ch.energy>=3) checkScore+=3;
+  if(ch.mood>=3) checkScore+=2;
+  if(ch.sleep>=3) checkScore+=2;
+  checkScore=Math.min(20, checkScore); // max 20
+  const meals=getMeals().length;
+  const mealScore=Math.min(15, meals*5); // max 15
+  // fasting: if habit fast done or timer past 16h
+  let fastScore=0;
+  if(s.fast) fastScore=15;
+  else if(typeof fastStart!=='undefined' && fastStart){
+    const hrs=(Date.now()-fastStart.getTime())/3600000;
+    if(hrs>=16) fastScore=15;
+    else if(hrs>=12) fastScore=8;
+  }
+  const waterScore=Math.min(5, Math.round((getW()/getWaterGoal())*5));
+  const total=Math.min(100, habitScore+checkScore+mealScore+fastScore+waterScore);
+  return {
+    total,
+    parts:{ habits:habitScore, checkin:checkScore, meals:mealScore, fasting:fastScore, water:waterScore }
+  };
+}
+
+function renderHealthScore(){
+  const score=computeHealthScore();
+  const ring=document.getElementById('score-ring');
+  const num=document.getElementById('score-num');
+  const br=document.getElementById('score-breakdown');
+  if(ring) ring.style.setProperty('--pct', score.total);
+  if(num) num.textContent=score.total;
+  if(br){
+    const p=score.parts;
+    br.innerHTML=`Habits ${p.habits}/45 · Check-in ${p.checkin}/20 · Meals ${p.meals}/15 · Fast ${p.fasting}/15 · Water ${p.water}/5`;
+  }
+  // also reflect on nav pill if high
+  const nav=document.getElementById('nav-score');
+  // keep habit % on nav; score is separate
+}
+
+function coachMessage(){
+  const score=computeHealthScore();
+  const s=getS();
+  const ch=getCheckin();
+  const hour=new Date().getHours();
+  const meals=getMeals().length;
+  const goal=getProfile().goal||'energy';
+
+  if(score.total>=85){
+    return 'Protocol is firing. High Health Score — protect sleep and keep the eating window honest so tomorrow starts clean.';
+  }
+  if(!ch.energy && !ch.mood){
+    return 'Start with a 10-second check-in: energy and mood. That data makes the rest of the coach smarter today.';
+  }
+  if(hour<11 && !s.light){
+    return 'Priority now: morning light. 15–20 minutes outside resets cortisol timing better than any supplement.';
+  }
+  if(hour<12 && !s.walk && !s.fast){
+    return 'Fasted walk window is open. Movement + empty stomach = the strongest AMPK double-signal in the protocol.';
+  }
+  if(hour>=12 && hour<16 && meals===0){
+    return 'Break-fast zone. Protein + cruciferous + garlic. Log it on the Food page so your Health Score and challenges update.';
+  }
+  if(!s.breathing && (ch.mood===1 || ch.energy===1)){
+    return 'Low energy/mood logged. Run one 4–7–8 round on the Stress page — fastest cortisol downshift available here.';
+  }
+  if(getW()<getWaterGoal()/2 && hour>=14){
+    return 'Hydration is lagging. Lymph and focus both pay for it. Hit the water goal before evening.';
+  }
+  if(score.parts.fasting===0 && hour>=18){
+    return 'Fasting window is the spine of the protocol. If you can still close food by 20:00, tomorrow\'s autophagy clock stays intact.';
+  }
+  if(goal==='smoking'){
+    return 'Quit streak is the non-negotiable. Use SOS at the first craving — ride it, log it, don\'t negotiate.';
+  }
+  if(score.total>=60){
+    return 'Solid base. Close the remaining habits — fermented food, magnesium, and evening wind-down compound hard.';
+  }
+  return getNextFocus(goal);
+}
+
+function renderCoach(){
+  const el=document.getElementById('coach-message');
+  if(el) el.textContent=coachMessage();
+}
+
+function refreshCoachLayer(){
+  renderCoach();
+  renderHealthScore();
+  renderChallenges();
+}
+
+
 // TOAST
 function toast(msg,type='ok'){
   const t=document.getElementById('toast');
@@ -2719,6 +3698,13 @@ if('Notification' in window && getAppSettings().reminderEnabled){
 }
 setInterval(checkReminder, 60000);
 
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter' && e.target && e.target.id==='custom-meal'){ e.preventDefault(); logCustomMeal(); }
+  if(e.key==='Enter' && e.target && e.target.id==='custom-workout'){ e.preventDefault(); logCustomWorkout(); }
+  if(e.key==='Enter' && e.target && e.target.id==='weight-input'){ e.preventDefault(); logWeight(); }
+});
+
+
 const dn=new Date();
 const dateEl=document.getElementById('today-date');
 if(dateEl)dateEl.textContent=dn.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
@@ -2734,6 +3720,12 @@ applyAppSettingsToSettings();
 renderChecklist();
 renderTodayInsights();
 renderWater();
+renderCheckinUI();
+renderMealsToday();
+renderWorkoutsToday();
+renderSetsHistory();
+applyMacroTargetsToUI();
+if(typeof refreshCoachLayer==='function')refreshCoachLayer();
 </script>
 </body>
 </html>
